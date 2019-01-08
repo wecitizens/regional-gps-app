@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "user_key": "be_politician_1",
+      "question_key": "question_100",
+      "value": "agree"
+    },
+    {
+      "user_key": "be_politician_1",
+      "question_key": "question_125",
+      "value": "disagree"
+    },
+    {
+      "user_key": "be_politician_2",
+      "question_key": "question_100",
+      "value": "agree"
+    },
+    {
+      "user_key": "be_politician_2",
+      "question_key": "question_125",
+      "value": "agree"
+    },
+    {
+      "user_key": "be_politician_3",
+      "question_key": "question_100",
+      "value": "strongly_disagree"
+    },
+    {
+      "user_key": "be_politician_3",
+      "question_key": "question_125",
+      "value": "strongly_disagree"
+    }
+  ]
+}

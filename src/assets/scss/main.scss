@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed:400,400i,500,500i,600,600i,700,700i|IBM+Plex+Sans:400,400i,500,500i,600,600i,700,700i&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700&subset=latin-ext');
+
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+
+body {
+  background: #F5F5F1;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #000000;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: bold;
+  margin-top: inherit;
+}
+
+a {
+  color: #000;
+}
+
+.alert-primary {
+  background: #F8E71C;
+  color: #FFFFFF;
+}
+
+.el-step__head {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .el-step.is-simple .el-step__title {
+    font-size: 9px;
+    max-width: 100%;
+    color: #000000;
+  }
+
+  .el-step.is-simple .el-step__arrow{
+    display: none;
+  }
+}

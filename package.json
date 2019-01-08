@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue serve",
-    "build": "vue build",
-    "lint": "vue lint",
-    "deploy": "vue s3-deploy",
-    "watch": "vue serve",
-    "deploy_prod": "vue build && bash deploy_prod.sh",
+    "serve": "vue-cli-service serve",
+    "watch": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "deploy": "vue-cli-service build && bash deploy.sh",
+    "deploy_prod": "vue-cli-service build && bash deploy_prod.sh",
     "sync-translations": "node --harmony ./bin/sync-translations.js",
     "get-answers": "node --harmony ./utils/segment_generation/generate-segments-candidate.js",
-    "test:e2e": "vue test:e2e"
+    "lint": "vue-cli-service lint",
+    "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
     "aos": "^2.3.3",
@@ -27,7 +27,7 @@
     "node-ssh": "^5.1.2",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",
-    "vue-cli-plugin-s3-deploy": "^2.1.1",
+    "vue-cli-plugin-s3-deploy": "^2.0.2",
     "vue-router": "^3.0.1",
     "vue-tour": "^1.0.1",
     "vuex": "^3.0.1",

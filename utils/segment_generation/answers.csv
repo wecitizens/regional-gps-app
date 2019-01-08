@@ -1,0 +1,75 @@
+id,segment_key,segment_type,user_key,question_key,value,user_name,opinion_received
+302250,2018_be_municipal_be_2570,electoral_list,be_2570_volksliga,question_4,fully_agree,VolksLiga,2018-09-12
+302251,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_4,no_opinion,"LEEF! & GROEN",2018-09-12
+302252,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_20,disagree,"LEEF! & GROEN",2018-09-12
+302253,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_21,disagree,"LEEF! & GROEN",2018-09-12
+302254,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_22,disagree,"LEEF! & GROEN",2018-09-12
+302255,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_23,no_opinion,"LEEF! & GROEN",2018-09-12
+302256,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_31,agree,"LEEF! & GROEN",2018-09-12
+302257,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_38,no_opinion,"LEEF! & GROEN",2018-09-12
+302258,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_46,fully_agree,"LEEF! & GROEN",2018-09-12
+302259,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_49,fully_agree,"LEEF! & GROEN",2018-09-12
+302260,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_58,fully_agree,"LEEF! & GROEN",2018-09-12
+302261,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_88,no_opinion,"LEEF! & GROEN",2018-09-12
+302262,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_89,no_opinion,"LEEF! & GROEN",2018-09-12
+302263,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_90,no_opinion,"LEEF! & GROEN",2018-09-12
+302264,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_93,no_opinion,"LEEF! & GROEN",2018-09-12
+302265,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_98,no_opinion,"LEEF! & GROEN",2018-09-12
+302266,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_99,disagree,"LEEF! & GROEN",2018-09-12
+302267,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_100,fully_agree,"LEEF! & GROEN",2018-09-12
+302268,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_102,no_opinion,"LEEF! & GROEN",2018-09-12
+302269,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_105,fully_agree,"LEEF! & GROEN",2018-09-12
+302270,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_107,fully_agree,"LEEF! & GROEN",2018-09-12
+302271,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_108,disagree,"LEEF! & GROEN",2018-09-12
+302272,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_109,disagree,"LEEF! & GROEN",2018-09-12
+302273,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_110,disagree,"LEEF! & GROEN",2018-09-12
+302274,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_111,disagree,"LEEF! & GROEN",2018-09-12
+302275,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_112,fully_agree,"LEEF! & GROEN",2018-09-12
+302276,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_113,disagree,"LEEF! & GROEN",2018-09-12
+302277,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_114,no_opinion,"LEEF! & GROEN",2018-09-12
+302278,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_118,no_opinion,"LEEF! & GROEN",2018-09-12
+302279,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_119,disagree,"LEEF! & GROEN",2018-09-12
+302280,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_120,no_opinion,"LEEF! & GROEN",2018-09-12
+302281,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_121,disagree,"LEEF! & GROEN",2018-09-12
+302282,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_123,fully_agree,"LEEF! & GROEN",2018-09-12
+302283,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_125,no_opinion,"LEEF! & GROEN",2018-09-12
+302284,2018_be_municipal_be_9550,electoral_list,be_9550_leef_groen,question_127,fully_agree,"LEEF! & GROEN",2018-09-12
+302211,2018_be_municipal_be_2627,electoral_list,be_2627_groen,question_20,disagree,groen,2018-09-11
+302212,2018_be_municipal_be_2627,electoral_list,be_2627_groen,question_21,disagree,groen,2018-09-11
+302213,2018_be_municipal_be_2627,electoral_list,be_2627_groen,question_22,disagree,groen,2018-09-11
+302214,2018_be_municipal_be_2627,electoral_list,be_2627_groen,question_23,agree,groen,2018-09-11
+302215,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_20,no_opinion,"Open Maasmechelen",2018-09-11
+302216,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_4,fully_agree,"Open Maasmechelen",2018-09-11
+302217,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_21,fully_agree,"Open Maasmechelen",2018-09-11
+302218,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_22,disagree,"Open Maasmechelen",2018-09-11
+302219,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_23,no_opinion,"Open Maasmechelen",2018-09-11
+302220,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_31,no_opinion,"Open Maasmechelen",2018-09-11
+302221,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_38,no_opinion,"Open Maasmechelen",2018-09-11
+302222,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_49,disagree,"Open Maasmechelen",2018-09-11
+302223,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_46,disagree,"Open Maasmechelen",2018-09-11
+302224,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_58,disagree,"Open Maasmechelen",2018-09-11
+302225,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_88,no_opinion,"Open Maasmechelen",2018-09-11
+302226,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_89,no_opinion,"Open Maasmechelen",2018-09-11
+302227,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_90,disagree,"Open Maasmechelen",2018-09-11
+302228,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_93,disagree,"Open Maasmechelen",2018-09-11
+302229,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_98,no_opinion,"Open Maasmechelen",2018-09-11
+302230,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_99,disagree,"Open Maasmechelen",2018-09-11
+302231,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_100,disagree,"Open Maasmechelen",2018-09-11
+302232,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_102,no_opinion,"Open Maasmechelen",2018-09-11
+302233,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_105,no_opinion,"Open Maasmechelen",2018-09-11
+302234,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_108,disagree,"Open Maasmechelen",2018-09-11
+302235,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_109,no_opinion,"Open Maasmechelen",2018-09-11
+302236,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_107,fully_agree,"Open Maasmechelen",2018-09-11
+302237,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_110,no_opinion,"Open Maasmechelen",2018-09-11
+302238,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_111,agree,"Open Maasmechelen",2018-09-11
+302239,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_112,agree,"Open Maasmechelen",2018-09-11
+302240,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_113,disagree,"Open Maasmechelen",2018-09-11
+302241,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_114,no_opinion,"Open Maasmechelen",2018-09-11
+302242,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_127,disagree,"Open Maasmechelen",2018-09-11
+302243,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_125,no_opinion,"Open Maasmechelen",2018-09-11
+302244,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_123,no_opinion,"Open Maasmechelen",2018-09-11
+302245,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_121,disagree,"Open Maasmechelen",2018-09-11
+302246,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_120,agree,"Open Maasmechelen",2018-09-11
+302247,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_119,no_opinion,"Open Maasmechelen",2018-09-11
+302248,2018_be_municipal_be_3630,electoral_list,be_3630_open_maasmechelen,question_118,no_opinion,"Open Maasmechelen",2018-09-11
+302210,2018_be_municipal_be_2627,electoral_list,be_2627_groen,question_4,no_opinion,groen,2018-09-11

@@ -1,0 +1,21 @@
+{
+  "key": "2018_be_municipal_2570",
+  "type": "be_municipal",
+  "type_name": "election_type_be_municipal_name",
+  "date": "2018-10-14T00:00:00.000Z",
+  "main_election_key": "2018_be_municipal",
+  "district_key": "be_2570",
+  "electoral_lists": [
+    {
+      "key": "be_2570_volksliga",
+      "name": "be_2570_volksliga_name"
+    }
+  ],
+  "i18n": {
+    "en": {},
+    "fr": {
+      "be_2570_volksliga_name": "VolksLiga"
+    },
+    "nl": {}
+  }
+}
