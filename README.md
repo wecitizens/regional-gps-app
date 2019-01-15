@@ -1,5 +1,7 @@
 # Wecitizens GPS App
 
+Ask to push
+
 ## Structure of the app
 
 The Front-End App is based on Vue-CLI package and the API part is based on Express.js.
