@@ -7,7 +7,7 @@ export default {
         "title": "Je trouve les candidats qui me correspondent",
         "title_1": "GPS",
         "title_2": "ELECTORAL",
-        "subtitle": "Communales 2018",
+        "subtitle": "Régionale et européenne 2018",
         "powered_by": "Powered by:",
         "description": "{userCount} électeurs ont déjà fait l'expérience",
         "with_help_from": "En partenariat avec :"
