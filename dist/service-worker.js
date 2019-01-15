@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.c79ff00aa0740aa027c6c0c6e872d885.js"
+  "/precache-manifest.3983f3d7a3f8b871829f56dcea917f41.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "gps"});
