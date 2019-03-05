@@ -102,13 +102,13 @@ export default {
                 "type": "select",
                 "title": "Je suis tombé sur le GPS électoral grâce à:",
                 "options": {
-                    "other": "Autre",
-                    "friend": "Bouche à oreille",
-                    "mailing": "Mailing de NousCitoyens",
+                    "googlesearch": "Moteur de recherche Google",
                     "tv_radio": "TV / Radio",
                     "paper_press": "Presse papier",
-                    "googlesearch": "Moteur de recherche Google",
-                    "social_media": "Réseaux sociaux"
+                    "friend": "Bouche à oreille",
+                    "social_media": "Réseaux sociaux",
+                    "mailing": "Mailing de NousCitoyens",
+                    "other": "Autre",
                 }
             },
             {
@@ -116,9 +116,9 @@ export default {
                 "type": "select",
                 "title": "Mon âge:",
                 "options": {
-                    "over_55": "+ 55 ans",
                     "less_than_35": "-35 ans",
-                    "between_35_and_55": "35 à 55 ans"
+                    "between_35_and_55": "35 à 55 ans",
+                    "over_55": "+ 55 ans",
                 }
             },
             {

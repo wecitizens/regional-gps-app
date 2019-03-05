@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Explanation from './views/Explanation.vue'
 import Survey from './views/Survey.vue'
 import Municipality from './views/Municipality.vue'
 import Results from './views/Results.vue'
@@ -19,9 +20,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/nl',
-      name: 'home-nl',
-      component: Home
+      path: '/explanation',
+      name: 'explanation',
+      component: Explanation
     },
     {
       path: '/en',

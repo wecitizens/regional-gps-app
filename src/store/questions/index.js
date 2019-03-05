@@ -3,13 +3,15 @@ export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
 export const SET_QUESTION_AGREEMENT = 'SET_QUESTION_AGREEMENT'
 export const SET_QUESTION_IMPORTANCE = 'SET_QUESTION_IMPORTANCE'
 export const SET_TOTAL = 'SET_TOTAL'
+export const SET_END_OF_SURVEY = 'SET_END_OF_SURVEY'
 
 export default {
   getters: {
     questions: state => state,
     survey: (state) => state.list,
     questionsLoading: state => state.list.loading,
-    currentQuestionKey: state => state.current === undefined ? null : state.current.key
+    currentQuestionKey: state => state.current === undefined ? null : state.current.key,
+    getEndOfSurvey : (state) => state.endOfSurvey
   },
   state: {
     list: {
@@ -44,6 +46,7 @@ export default {
       notice: null,
       index: 1
     },
+    endOfSurvey : false,
     total: 30
   },
   mutations: {
@@ -51,7 +54,9 @@ export default {
       state.list.data = mutation
     },
     [SET_CURRENT_QUESTION] (state, mutation) {
-      state.current = mutation.question
+      if(typeof mutation.question !== "undefined"){
+        state.current = mutation.question
+      }
     },
     [SET_QUESTION_AGREEMENT] (state, mutation) {
       const questionKey = mutation.questionKey
@@ -63,6 +68,9 @@ export default {
     },
     [SET_TOTAL] (state, mutation) {
       state.total = mutation.total
+    },
+    [SET_END_OF_SURVEY] (state, mutation) {
+      state.endOfSurvey = mutation
     }
   },
   actions: {
@@ -94,6 +102,9 @@ export default {
 
       if (nextQuestion) {
         console.log('Has next')
+      } else {
+        console.log("End of the survey");
+        commit(SET_END_OF_SURVEY, true)
       }
 
       if (currentQuestion) {

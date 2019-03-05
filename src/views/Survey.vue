@@ -18,7 +18,7 @@
                        @click="goPrevious"><i class="fas fa-chevron-left"></i></a>
                 </div>
                 <div class="col">
-                    <a v-show="questions.current.index > 1" class="btn btn-block"
+                    <a v-show="questions.current.index > 9" class="btn btn-block"
                        @click="goResults">{{ $t("button.see_results") }} </a>
                 </div>
                 <div class="col-2">
@@ -48,7 +48,7 @@
       }
     },
     computed: {
-      ...mapGetters(['questions', 'currentQuestionKey', 'survey'])
+      ...mapGetters(['questions', 'currentQuestionKey', 'survey', "getEndOfSurvey"])
     },
     methods: {
       ...mapActions(['getQuestions', 'previousQuestion', 'nextQuestion']),
@@ -66,10 +66,8 @@
       }
     },
     watch: {
-      'currentQuestionKey': (value) => {
-        if (!value) {
+      getEndOfSurvey : function(){
           this.$router.push({path: '/stats'});
-        }
       }
     },
     created() {

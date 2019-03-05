@@ -8,19 +8,20 @@
 
         <h3 class="title p-3">{{ $t('gps.survey.' + question.text) }}</h3>
 
-        <el-row class="actions mt-3 d-none">
+
+        <el-row class="actions mt-3">
             <el-tooltip class="item" effect="dark" :content="$t('moreinfo_tooltip')" placement="bottom">
                 <el-button title="test" :disabled="!question.notice" @click="showMoreInfo = !showMoreInfo"
                            :icon="showMoreInfo ? 'el-icon-minus' : 'el-icon-info'" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" :content="$t('importance_tooltip')" placement="bottom">
+            <el-tooltip class="item d-none" effect="dark" :content="$t('importance_tooltip')" placement="bottom">
                 <el-button title="test" @click="showImportance = !showImportance"
                            :icon="showImportance ? 'el-icon-minus' : 'el-icon-star-off'" circle></el-button>
             </el-tooltip>
         </el-row>
 
         <div v-show="showMoreInfo" class="moreInfos mt-3">
-            {{ question.notice }}
+            {{ $t('gps.survey.' + question.notice) }}
         </div>
 
         <div v-show="showImportance && answerFormat.tolerance" class="importances mt-3">
@@ -106,6 +107,9 @@
           this.setQuestionImportance({questionKey: this.question.key, tolerance})
         }, 100)
       },
+      questions: function (questions) {
+
+      }
     },
     methods: {
       ...mapActions(['setQuestionAgreement', 'setQuestionImportance']),
@@ -116,6 +120,7 @@
         return index;
       },
       setAnswer: function (key) {
+        console.log('Agreement', key);
         this.answer_key = key;
         this.agreement = key;
       },

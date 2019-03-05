@@ -15,13 +15,13 @@
         </el-step>
         <el-step :index="3">
             <template slot="title">
-                <router-link v-if="currentQuestionKey" to="/stats">3.{{ $t('menu.item.stats') }}</router-link>
+                <router-link v-if="questions.current.index > 10" to="/stats">3.{{ $t('menu.item.stats') }}</router-link>
                 <span v-else>3.{{ $t('menu.item.stats') }}</span>
             </template>
         </el-step>
         <el-step :index="4">
             <template slot="title">
-                <router-link v-if="currentQuestionKey" to="/results">4.{{ $t('menu.item.results') }}</router-link>
+                <router-link v-if="questions.current.index > 10" to="/results">4.{{ $t('menu.item.results') }}</router-link>
                 <span v-else>4.{{ $t('menu.item.results') }}</span>
             </template>
         </el-step>

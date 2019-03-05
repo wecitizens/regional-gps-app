@@ -29,8 +29,10 @@
                             </div>
                         </div>
                     </div>
+                    <a href="" class="btn btn-primary" v-on:click="() => printDiv('print-list')">PRINT</a>
                 </b-tab>
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center">
+                    <div id="print-list">
                     <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentElectoralListScores.map(extractList)"
                          :key="idx">
@@ -49,6 +51,10 @@
                             </div>
                         </div>
                     </div>
+
+                    </div>
+
+                    <a href="" class="btn btn-primary d-print-none" v-on:click="() => printDiv('print-list')">PRINT</a>
                 </b-tab>
             </b-tabs>
         </b-card>
@@ -59,6 +65,19 @@
             <a :href="$t('newsletter.link')" target="_blank" class="btn btn-info btn-block mt-3">{{
                 $t('newsletter.title') }}</a>
         </el-dialog>
+
+
+        <footer class="footer container-fluid">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="mb-2">{{ $t("home.with_help_from") }}</div>
+                    <img src="/img/partner-metro.png" height="20" class="m-2">
+                    <img src="/img/partner-sudpress.png" height="20" class="m-2">
+                    <img src="/img/partner-levif.png" height="20" class="m-2">
+                    <img src="/img/partner-knack.png" height="20" class="m-2">
+                </div>
+            </div>
+        </footer>
     </div>
 </template>
 
@@ -69,6 +88,9 @@
   export default {
     name: 'results',
     methods: {
+      printDiv() {
+        window.print();
+      },
       getElectoralListForScore(score) {
         return this.currentElection.electoral_lists.find(e => e.key == score.user_key);
       },
@@ -157,6 +179,12 @@
 </script>
 
 <style scoped>
+
+    @media print {
+        . {
+            display: none;
+        }
+    }
 
     .tab-center {
         margin: auto;
