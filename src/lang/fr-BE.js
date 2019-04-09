@@ -12,6 +12,13 @@ export default {
         "description": "{userCount} électeurs ont déjà fait l'expérience",
         "with_help_from": "En partenariat avec :"
     },
+    "choose" : {
+        "title": "Choisissez votre circonscription",
+        "baseline" : "",
+        "european_elections" : "Élections européennes",
+        "federal_elections" : "Élections fédérales",
+        "regional_elections" : "Élections régionales",
+    },
     "app": {
         "title": "GPS électoral"
     },
@@ -68,7 +75,7 @@ export default {
             "share_app": "Partager le {app_title}",
             "about_app": "À propos du {app_title}",
             "questions": "Questions",
-            "municipality": "Commune",
+            "choose": "Choix",
             "go_to_results": "Sauter aux résultats",
             "share_results": "Partager mes résultats",
             "about_association": "À propos de {association_name}",

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Explanation from './views/Explanation.vue'
 import Survey from './views/Survey.vue'
-import Municipality from './views/Municipality.vue'
+import Choose from './views/Choose.vue'
 import Results from './views/Results.vue'
 import Stats from './views/Stats.vue'
 import Translations from './views/Translations.vue'
@@ -20,11 +20,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/explanation',
-      name: 'explanation',
-      component: Explanation
-    },
-    {
       path: '/en',
       name: 'home-en',
       component: Home
@@ -35,9 +30,14 @@ export default new Router({
       component: Survey
     },
     {
-      path: '/municipality',
-      name: 'municipality',
-      component: Municipality
+      path: '/choose',
+      name: 'choose',
+      component: Choose
+    },
+    {
+      path: '/explanation/:key',
+      name: 'explanation',
+      component: Explanation
     },
     {
       path: '/insufficient-candidates/:key',

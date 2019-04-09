@@ -2,12 +2,22 @@
     <div>
         <steps :active="1"></steps>
         <div class="text-center container mt-5">
-            <h1>{{ $t("district.what_is_your_postcode") }}</h1>
-            <p>{{ $t("district.help_customise_survey") }}</p><br/>
+            <h1>{{ $t("choose.title") }}</h1>
+            <p>{{ $t("choose.baseline") }}</p><br/>
             <el-row>
                 <el-autocomplete class="inline-input" v-model="district" :fetch-suggestions="filterDistricts"
-                                 v-bind:placeholder="$t('input.place_holder.your_postcode')"
+                                 v-bind:placeholder="$t('choose.regional_elections')"
                                  @select="setCurrentDistrict({ district })"></el-autocomplete>
+            </el-row>
+            <el-row>
+                <el-select v-model="region" placeholder="Choisissez votre région">
+                    <el-option
+                            v-for="item in regions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
             </el-row>
             <br/>
             <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
@@ -32,7 +42,7 @@
 
   import {mapState} from 'vuex';
   import Steps from '../components/Steps';
-  import { Loading } from 'element-ui';
+  import {Loading} from 'element-ui';
 
   export default {
     name: 'district',
@@ -41,20 +51,35 @@
       return {
         district: null,
         zip_code: null,
-        district_key: null
+        district_key: null,
+        region : null,
+        regions: [{
+          value: 'VL',
+          label: 'Bruxelles-Capitale'
+        }, {
+          value: 'WL',
+          label: 'Région Walonne'
+        }, {
+          value: 'FL',
+          label: 'Région Flamande'
+        }]
       }
-    },
+    }
+    ,
     created() {
       this.$store.dispatch('getDistricts');
-    },
+    }
+    ,
     computed: {
       displayNextStepButton() {
         return true
-      },
+      }
+      ,
       survey() {
         console.log(this.$store.state);
         return this.$store.state.survey.current;
-      },
+      }
+      ,
       participatingCandidates() {
 
         if (this.$store.state.vote.current.election.candidates.length) {
@@ -64,9 +89,12 @@
         }
 
         return 0;
-      },
-      ...mapState(['vote'])
-    },
+      }
+      ,
+      ...
+        mapState(['vote'])
+    }
+    ,
     methods: {
       setCurrentDistrict(data) {
         const loading = Loading.service();
@@ -76,11 +104,13 @@
         this.$store.dispatch("setCurrentElection", district).then(() => {
           loading.close();
         });
-      },
+      }
+      ,
       async filterDistricts(data, cb) {
         await this.$store.dispatch('filterDistricts', data);
         cb(this.$store.state.vote.districtSearchResults);
       }
     }
-  };
+  }
+  ;
 </script>

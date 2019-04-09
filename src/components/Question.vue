@@ -1,10 +1,20 @@
 <template>
     <div v-if="question.text">
 
-        <div class="alert-primary">
-            <span v-if="index">{{ (index + 1)  }}</span>
-            <span v-else>{{ questions.current.index }}</span>/{{ questions.total }}
-        </div>
+        <el-popover
+                placement="bottom-start"
+                title="Title"
+                width="200"
+                trigger="manual"
+                v-model="help_mode"
+                content="this is content, this is content, this is content">
+            <div slot="reference" class="alert-primary" @click="help_mode = !help_mode">
+                <div slot="reference" @click="help_mode = !help_mode">
+                    <span v-if="index">{{ (index + 1)  }}</span>
+                    <span v-else>{{ questions.current.index }}</span>/{{ questions.total }}
+                </div>
+            </div>
+        </el-popover>
 
         <h3 class="title p-3">{{ $t('gps.survey.' + question.text) }}</h3>
 
@@ -65,6 +75,9 @@
       },
       index: {
         default: false
+      },
+      help_mode: {
+        default: true
       }
     },
     components: {
@@ -177,6 +190,7 @@
                 opacity: 1;
                 animation: blink-animation 0.4s steps(5, start) 2;
                 -webkit-animation: blink-animation 0.4s steps(5, start) 2;
+
                 i {
                     opacity: 1;
                 }

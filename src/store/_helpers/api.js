@@ -35,13 +35,12 @@ class API {
     return axios.get(endPoint, init)
   }
 
-  static post(endPoint, data = {}) {
-    const headers = {
-      'Content-type': 'application/json'
-    }
-    const init = {url: endPoint, method: 'post', headers, data}
+  static post(endPoint, body = {}) {
+    const init = {...this.init, method: 'POST', body: JSON.stringify(body)}
 
-    return axios(init)
+    return fetch(`${ServerUrl}${endPoint}`, init)
+      .then(response => handleError(response))
+      .then(response => response.json())
   }
 
   static put(endPoint, body = {}) {

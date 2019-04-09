@@ -12,6 +12,10 @@ export default {
         "description": "{userCount} kiezers hebben het al gedaan",
         "with_help_from": "In samenwerking met:"
     },
+    "choose" : {
+        "title": "Choisissez votre circonscription",
+        "baseline" : ""
+    },
     "app": {
         "title": "KiesWijzer"
     },
@@ -68,7 +72,7 @@ export default {
             "share_app": "Ik deel de {app_title}",
             "about_app": "Meer over {app_title}",
             "questions": "Vragen",
-            "municipality": "Gemeente",
+            "choose": "Gemeente",
             "go_to_results": "Nu al naar het resultaat",
             "share_results": "Mijn resultaat delen",
             "about_association": "Meer over {association_name}",

@@ -31,7 +31,7 @@
   import flat from 'flat';
 
   export default {
-    name: 'municipality',
+    name: 'translations',
     components: {Steps},
     data() {
       return {
