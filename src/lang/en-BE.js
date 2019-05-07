@@ -68,6 +68,7 @@ export default {
             "share_app": "Share the {app_title}",
             "about_app": "About {app_title}",
             "questions": "Questions",
+            "region": "Region",
             "municipality": "Municipality",
             "go_to_results": "Skip to results",
             "share_results": "Share my results",
@@ -157,7 +158,15 @@ export default {
             "subject": "Your registration to the electoral GPS for the municipal elections"
         }
     },
+    "region": {
+        "what_is_your_region": "My region:",
+        "help_customise_survey": "I will receive the ranking of candidates for my electoral district."
+    },
     "district": {
+        "what_is_your_district": "Electoral district",
+        "help_customise_survey": "I will receive the ranking of candidates in my electoral district."
+    },
+    "municipality": {
         "what_is_your_postcode": "My postal code",
         "help_customise_survey": "I will receive the ranking of candidates in my municipality."
     },

@@ -69,6 +69,7 @@ export default {
             "about_app": "À propos du {app_title}",
             "questions": "Questions",
             "municipality": "Commune",
+            "region": "Région",
             "go_to_results": "Sauter aux résultats",
             "share_results": "Partager mes résultats",
             "about_association": "À propos de {association_name}",
@@ -157,9 +158,17 @@ export default {
             "subject": "Votre inscription au GPS électoral pour les élections municipales"
         }
     },
-    "district": {
+    "region": {
+        "what_is_your_region": "Ma région:",
+        "help_customise_survey": "Je recevrai le classement des candidats de mon district électoral."
+    },
+    "municipality": {
         "what_is_your_postcode": "Mon code postal",
         "help_customise_survey": "Je recevrai le classement des candidats de ma commune."
+    },
+    "district": {
+        "what_is_your_district": "Mon district électoral",
+        "help_customise_survey": "Je recevrai le classement des candidats de mon district..."
     },
     "not_enough_candidates_answered": "Dans cette commune, moins de six candidats ont répondu au questionnaire du GPS électoral. Désolé, mais la procédure s'arrête ici.",
     "input": {

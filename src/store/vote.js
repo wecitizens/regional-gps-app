@@ -26,6 +26,7 @@ export default {
   },
   actions: {
     async getDistricts ({ commit }, data) {
+      console.log('vote.js:getDistricts');
       const districts = await API.get('vote/district.json', data)
         .then((request) => {
           Vue.i18n.add('en', {vote: request.data.i18n.en})
@@ -37,6 +38,7 @@ export default {
       commit('setDistricts', districts)
     },
     filterDistricts ({commit, state}, queryString) {
+      console.log('vote.js:filterDistricts ');
       const districts = state.districts.map(m => {
         m.value = m.code + ' ' + Vue.i18n.translate('vote.' + m.name)
         return m

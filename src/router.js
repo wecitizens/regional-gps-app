@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Explanation from './views/Explanation.vue'
 import Survey from './views/Survey.vue'
 import Municipality from './views/Municipality.vue'
+import Region from './views/Region.vue'
 import Results from './views/Results.vue'
 import Stats from './views/Stats.vue'
 import Translations from './views/Translations.vue'
@@ -33,6 +34,11 @@ export default new Router({
       path: '/survey/:key',
       name: 'survey',
       component: Survey
+    },
+    {
+      path: '/region',
+      name: 'region',
+      component: Region
     },
     {
       path: '/municipality',
