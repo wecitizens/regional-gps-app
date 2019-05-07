@@ -24,7 +24,7 @@ export default {
 
       console.log('-> setCurrentPoll', data);
 
-      const poll = await API.get('gps/poll/2018_be_municipal_' +
+      const poll = await API.get('gps/poll/2019_be_regional_' +
         rootState.vote.current.district.key + '_voter.json', data)
         .then(request => {
           return request.data

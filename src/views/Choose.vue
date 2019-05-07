@@ -5,47 +5,48 @@
             <h1>{{ $t("choose.title") }}</h1>
             <p>{{ $t("choose.baseline") }}</p><br/>
 
-            {{ vote.districts }}
+            {{ this.districts }}
 
-            <el-row>
-                <el-select v-model="europ" placeholder="Européenne">
+            <el-row class="mb-3">
+                <el-select v-model="districts.europe"
+                           :placeholder="$t('choose.european_elections')">
                     <el-option
                             v-for="item in europLists"
-                            :key="item.value"
+                            :key="item.code"
                             :label="$t('vote.'+item.name)"
-                            :value="item.value">
+                            :value="item.code"
+                    >
                     </el-option>
                 </el-select>
             </el-row>
 
-            <el-row>
-                <el-select v-model="federal" placeholder="Fédérales">
+            <el-row class="mb-3">
+                <el-select v-model="districts.federal"
+                           :placeholder="$t('choose.federal_elections')">
                     <el-option
                             v-for="item in federalLists"
-                            :key="item.value"
+                            :key="item.code"
                             :label="$t('vote.'+item.name)"
-                            :value="item.value">
+                            :value="item.code">
                     </el-option>
                 </el-select>
             </el-row>
 
-            <el-row>
-                <el-select v-model="region" placeholder="Régionales">
+            <el-row class="mb-3">
+                <el-select v-model="districts.regional"
+                           :placeholder="$t('choose.regional_elections')">
                     <el-option
                             v-for="item in regionalLists"
-                            :key="item.value"
+                            :key="item.code"
                             :label="$t('vote.'+item.name)"
-                            :value="item.value">
+                            :value="item.code">
                     </el-option>
                 </el-select>
             </el-row>
             <br/>
-            <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
-                <router-link v-if="participatingCandidates >= 6" :to="'/survey/'+district_key"
+            <el-row v-if="districtKey">
+                <router-link :to="'/survey/'+districtKey"
                              tag="el-button">{{ $t("button.lets_go") }}
-                </router-link>
-                <router-link v-else :to="'/insufficient-candidates/'+district_key" tag="el-button">
-                    {{$t("button.lets_go") }}
                 </router-link>
                 <div class="mt-2">
                     {{ $t('accept_condition') }}
@@ -60,38 +61,33 @@
   import {mapState} from 'vuex';
   import Steps from '../components/Steps';
   import {Loading} from 'element-ui';
+  import Vue from "vue";
 
   export default {
     name: 'district',
     components: {Steps},
     data() {
       return {
-        district: null,
-        zip_code: null,
-        district_key: null,
-        region: null,
-        europ: null,
-        federal: null,
-        regions: [
-          {
-            value: 'VL',
-            label: 'Bruxelles-Capitale'
-          }, {
-            value: 'WL',
-            label: 'Région Walonne'
-          }, {
-            value: 'FL',
-            label: 'Région Flamande'
-          }
-        ]
+        districts: {
+          europe: null,
+          federal: null,
+          regional: null,
+        }
       }
     },
     created() {
       this.$store.dispatch('getElectoralDistricts');
     },
     computed: {
-      displayNextStepButton() {
-        return true
+      districtKey(){
+
+        let district = this.districts;
+
+        if (district.europe && district.federal && district.regional) {
+          return district.europe+"_"+district.federal+"_"+district.regional;
+        }
+
+        return null;
       },
       survey() {
         console.log(this.$store.state);
@@ -108,15 +104,15 @@
 
         return 0;
       },
-      europLists(){
+      europLists() {
 
         if (this.$store.state.vote.districts.length) {
-          return this.$store.state.vote.districts.filter((item) => item.type === "EUROP");
+          return this.$store.state.vote.districts.filter((item) => item.type.match("EUROP"));
         }
 
         return [];
       },
-      federalLists(){
+      federalLists() {
 
         if (this.$store.state.vote.districts.length) {
           return this.$store.state.vote.districts.filter((item) => item.type.match("BEF"));
@@ -124,7 +120,7 @@
 
         return [];
       },
-      regionalLists(){
+      regionalLists() {
 
         if (this.$store.state.vote.districts.length) {
           return this.$store.state.vote.districts.filter((item) => item.type.match("BER"));
@@ -135,14 +131,23 @@
       ...mapState(['vote'])
     },
     methods: {
-      setCurrentDistrict(data) {
-        const loading = Loading.service();
+      querySearch(key, queryString, cb) {
+        console.log("Search", key, queryString);
+        let items = this[key];
+        let results = items.filter((item) => item.name.match(queryString));
+        cb(results);
+      },
+      setCurrentDistricts() {
+
+        console.log(this.districts);
+
+        /*const loading = Loading.service();
         const district = this.$store.state.vote.districtSearchResults.find(r => r.value === data.district);
-        this.district_key = district.key;
-        this.$store.commit("setCurrentDistrict", district);
+        this.district_key = district.key;*/
+        /*this.$store.commit("setCurrentDistrict", district);
         this.$store.dispatch("setCurrentElection", district).then(() => {
           loading.close();
-        });
+        });*/
       }
       ,
       async filterDistricts(data, cb) {
