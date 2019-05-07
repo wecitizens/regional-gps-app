@@ -5,8 +5,6 @@
             <h1>{{ $t("choose.title") }}</h1>
             <p>{{ $t("choose.baseline") }}</p><br/>
 
-            {{ this.districts }}
-
             <el-row class="mb-3">
                 <el-select v-model="districts.europe"
                            :placeholder="$t('choose.european_elections')">
@@ -84,7 +82,7 @@
         let district = this.districts;
 
         if (district.europe && district.federal && district.regional) {
-          return district.europe+"_"+district.federal+"_"+district.regional;
+          return district.regional;
         }
 
         return null;

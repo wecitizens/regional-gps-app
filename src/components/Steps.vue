@@ -2,7 +2,7 @@
     <el-steps class="steps mt-20" :active="active" simple>
         <el-step :index="1">
             <template slot="title">
-                <router-link to="/region">1.{{ $t('menu.item.region') }}</router-link>
+                <router-link to="/choose">1.{{ $t('menu.item.region') }}</router-link>
             </template>
         </el-step>
         <el-step :index="2">

@@ -80,7 +80,11 @@
 
         this.district_key = this.$route.params.key;
 
-        const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
+        const district = {
+          "key" : this.district_key
+        };
+
+        //const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
 
         this.$store.commit("setCurrentDistrict", district);
         this.$store.dispatch("setCurrentElection", district);

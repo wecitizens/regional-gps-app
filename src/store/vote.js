@@ -64,14 +64,17 @@ export default {
     },
     async setCurrentElection ({commit}, district) {
       if(district) {
-        const election = await API.get('vote/election/2019_be_regional/district/' + district.key + '.json').then((request) => {
+
+        console.log("District", district);
+
+        /*const election = await API.get('vote/election/2019_be_regional/district/' + district.key + '.json').then((request) => {
           Vue.i18n.add('en', {vote: request.data.i18n.en})
           Vue.i18n.add('fr', {vote: request.data.i18n.fr})
           Vue.i18n.add('nl', {vote: request.data.i18n.nl})
           return request.data
-        })
+        });*/
         commit('setCurrentDistrict', district)
-        commit('setCurrentElection', election)
+        //commit('setCurrentElection', election)
       } else {
         console.log('District undefined !');
       }

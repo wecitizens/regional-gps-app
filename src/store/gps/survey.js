@@ -24,15 +24,16 @@ export default {
 
       console.log('-> setCurrentPoll', data);
 
-      const poll = await API.get('gps/poll/2019_be_regional_' +
+      /*const poll = await API.get('gps/poll/2019_be_regional_' +
         rootState.vote.current.district.key + '_voter.json', data)
         .then(request => {
           return request.data
-        })
-      commit('setCurrentPoll', poll)
+        })*/
+
+      commit('setCurrentPoll', rootState.vote.current.district.key)
     },
     async setCurrentSurvey ({ commit, state }) {
-      const survey = await API.get('gps/survey/' + state.current.poll.survey_key + '.json').then(request => {
+      const survey = await API.get('gps/survey/2019-05-26.json?regional_id=BERBR').then(request => {
         const survey = request.data
         Vue.i18n.add('en', { gps: { survey: survey.i18n.en } })
         Vue.i18n.add('fr', { gps: { survey: survey.i18n.fr } })
