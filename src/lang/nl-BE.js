@@ -72,6 +72,8 @@ export default {
             "share_app": "Ik deel de {app_title}",
             "about_app": "Meer over {app_title}",
             "questions": "Vragen",
+            "region": "Gewest",
+            "municipality": "Gemeente",
             "choose": "Gemeente",
             "go_to_results": "Nu al naar het resultaat",
             "share_results": "Mijn resultaat delen",
@@ -161,7 +163,15 @@ export default {
             "subject": "Uw inschrijving in de KiesWijzer voor de gemeenteraadsverkiezingen"
         }
     },
+    "region": {
+        "what_is_your_region": "Mijn gewest:",
+        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn gewest."
+    },
     "district": {
+        "what_is_your_district": "Mijn distrikt",
+        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn distrikt."
+    },
+    "municipality": {
         "what_is_your_postcode": "Mijn postcode",
         "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn gemeente."
     },

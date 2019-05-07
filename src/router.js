@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Explanation from './views/Explanation.vue'
 import Survey from './views/Survey.vue'
+import Region from './views/Region.vue'
 import Choose from './views/Choose.vue'
 import Results from './views/Results.vue'
 import Stats from './views/Stats.vue'
@@ -29,6 +30,16 @@ export default new Router({
       name: 'survey',
       component: Survey
     },
+    {
+      path: '/region',
+      name: 'region',
+      component: Region
+    },
+    //{
+    //  path: '/municipality',
+    //  name: 'municipality',
+    //  component: Municipality
+    //},
     {
       path: '/choose',
       name: 'choose',
