@@ -37,6 +37,17 @@ export default {
 
       commit('setDistricts', districts)
     },
+    async getElectoralDisctricts({ commit }, data) {
+      const lists = await API.get('vote/electoral-districts.json', data)
+        .then((request) => {
+          Vue.i18n.add('en', {vote: request.data.i18n.en})
+          Vue.i18n.add('fr', {vote: request.data.i18n.fr})
+          Vue.i18n.add('nl', {vote: request.data.i18n.nl})
+          return request.data.data
+        })
+
+      commit('setDistricts', districts)
+    },
     filterDistricts ({commit, state}, queryString) {
       console.log('vote.js:filterDistricts ');
       const districts = state.districts.map(m => {

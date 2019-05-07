@@ -5,21 +5,21 @@
         <el-form ref="form" label-position="top" :model="form" label-width="120px">
 
             <el-form-item :label="q[1].title">
-                <el-select :v-model="form.age" placeholder="" value="">
-                    <el-option v-if="value" v-for="(name, value) in q[1].options" :key="value" v-bind:label="name" :name="q[1].key"
+                <el-select v-model="form.age" placeholder="" value="">
+                    <el-option v-for="(name, value) in q[1].options" :key="value" v-bind:label="name" :name="q[1].key"
                                :value="value"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item :label="q[0].title">
-                <el-select :v-model="form.source" placeholder="" value="">
+                <el-select v-model="form.source" placeholder="" value="">
                     <el-option v-if="value" v-for="(name, value) in q[0].options" :key="value" v-bind:label="name" :name="q[0].key"
                                :value="value"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item :label="q[2].title">
-                <el-select :v-model="form.party_vote" placeholder="" value="">
+                <el-select v-model="form.party_vote" placeholder="" value="">
                     <el-option v-if="value" v-for="(name, value) in q[2].options" :key="value" v-bind:label="name" :name="q[2].key"
                                :value="value"></el-option>
                 </el-select>
@@ -36,7 +36,7 @@
   import Steps from '../components/Steps'
   import ElRadio from "element-ui/packages/radio/src/radio"
   import Api from '../store/_helpers/api';
-
+  import axios from "axios";
 
   export default {
     components: {
@@ -45,7 +45,7 @@
     },
     data() {
       return {
-        municipality: null,
+        choose: null,
         type: null,
         form: {
           source: null,
@@ -58,8 +58,13 @@
     computed: {},
     methods: {
       seeResults() {
-        Api.get('stats', {
-          stats: this.form,
+
+        console.log("FORM", this.form);
+
+        let data = this.form;
+
+        axios.get('stats', {
+          params: data
         }).then(() => {
           this.$router.push({name: 'results'});
         });

@@ -6,7 +6,7 @@
                 <div v-for="(question, idx) in questions.list.data.questions" :key="idx"
                      v-if="question.key === currentQuestionKey">
                     <div class="question mt-5">
-                        <Question :question="question" :answerFormat="getAnswerFormat(question.answer_format)"/>
+                        <Question v-bind:class="{ show_tips : helpMode }" :help_mode="helpMode" :question="question" :answerFormat="getAnswerFormat(question.answer_format)"/>
                     </div>
                 </div>
             </transition-group>
@@ -29,6 +29,10 @@
                 </div>
             </div>
         </el-footer>
+
+        <div v-bind:class="{ help_mode : helpMode }">
+
+        </div>
     </div>
 </template>
 
@@ -44,7 +48,8 @@
     },
     data() {
       return {
-        loading: true
+        loading: true,
+        helpMode: false
       }
     },
     computed: {
@@ -66,8 +71,8 @@
       }
     },
     watch: {
-      getEndOfSurvey : function(){
-          this.$router.push({path: '/stats'});
+      getEndOfSurvey: function () {
+        this.$router.push({path: '/stats'});
       }
     },
     created() {
@@ -126,6 +131,18 @@
         position: relative;
         bottom: 0;
         width: 100%;
+    }
+
+    .help_mode {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right : 0;
+        background: #444;
+        height: 100vh;
+        width: 100wh;
+        opacity: 0.4;
     }
 
 

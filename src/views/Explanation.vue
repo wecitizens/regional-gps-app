@@ -9,7 +9,7 @@
                 <div class="perso-left">
                     <img src="/img/perso-1.svg" alt="">
                 </div>
-                <router-link to="/municipality" tag="a" class="btn-start">
+                <router-link to="/choose" tag="a" class="btn-start">
                     {{ $t("home.cta") }}
                 </router-link>
                 <div class="perso-right">
