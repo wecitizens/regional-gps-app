@@ -1,6 +1,6 @@
 export default {
     "agree": "Rather yes",
-    "notice": "The method of calculating the score (the 'matching') is described here [http://www.wecitizens.be/docs-en/Q22-Matching_methodology.pdf]\nDisclaimer:\nWeCitizens can not guarantee the sincerity or the reliability of the answers of the candidates. The matching score is only one element to take into account when picking a candidate to vote for. We encourage you also jude the candidate's projects, skills and integrity. You can visit the profile of the candidate by clicking on his name.\nAlso take into account that your choose faces challenges that are unique to it and that are not included in this tool.\nWith your support, we hope to help you even better in the federal, regional and European elections of May 2019.",
+    "notice": "The method of calculating the score (the 'matching') is described here [http://www.wecitizens.be/docs-en/Q22-Matching_methodology.pdf]\nDisclaimer:\nWeCitizens can not guarantee the sincerity or the reliability of the answers of the candidates. The matching score is only one element to take into account when picking a candidate to vote for. We encourage you also jude the candidate's projects, skills and integrity. You can visit the profile of the candidate by clicking on his name.\nAlso take into account that your district faces challenges that are unique to it and that are not included in this tool.\nWith your support, we hope to help you even better in the federal, regional and European elections of May 2019.",
     "disagree": "Rather no",
     "home": {
         "cta": "I do the test!",
@@ -91,7 +91,7 @@ export default {
         "name": "WeCitizens"
     },
     "strongly_disagree": "Strongly disagree",
-    "insuffisant_number": "The number of participating candidates in the choose is still insufficient to run the matching function. Come back on the 13th or 14th of October to try again. Should you want, you reach the survey by clicking on step \"2. Questions\", here abore. By clicking on the name of a candidate, you open his profile. The first names (displayed in black) have answered some questions. The \"Opinions\" tab (in their profile) gives you their answers.",
+    "insuffisant_number": "The number of participating candidates in the district is still insufficient to run the matching function. Come back on the 13th or 14th of October to try again. Should you want, you reach the survey by clicking on step \"2. Questions\", here abore. By clicking on the name of a candidate, you open his profile. The first names (displayed in black) have answered some questions. The \"Opinions\" tab (in their profile) gives you their answers.",
     "importance_tooltip": "How important for me",
     "results": {
         "lists_title": "Electoral lists in the order of political affinity",
@@ -173,9 +173,10 @@ export default {
     },
     "municipality": {
         "what_is_your_postcode": "My postal code",
-        "help_customise_survey": "I will receive the ranking of candidates in my choose."
+        "help_customise_survey": "I will receive the ranking of candidates in my municipality."
     },
-    "not_enough_candidates_answered": "In this choose, less than six candidates answered the questionnaire of the Electoral GPS. Sorry, but we can not help you further.",
+    "not_enough_candidates_answered": "In this municipality, less than six candidates answered the questionnaire of the Electoral GPS. Sorry, but we can not help you further.",
+    "not_enough_candidates_answered_district": "In this district, less than six candidates answered the Electoral GPS questionnaire. Sorry, but we can not help you further.",
     "input": {
         "place_holder": {
             "your_postcode": "Your postal code"

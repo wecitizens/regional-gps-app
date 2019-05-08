@@ -179,6 +179,7 @@ export default {
         "help_customise_survey": "Je recevrai le classement des candidats de mon district..."
     },
     "not_enough_candidates_answered": "Dans cette commune, moins de six candidats ont répondu au questionnaire du GPS électoral. Désolé, mais la procédure s'arrête ici.",
+    "not_enough_candidates_answered_district": "Dans ce district, moins de six candidats ont répondu au questionnaire du GPS électoral. Désolé, mais la procédure s'arrête ici.",
     "input": {
         "place_holder": {
             "your_postcode": "xxxx"
