@@ -81,7 +81,7 @@ export default {
     },
     async setCurrentMunicipalElection ({commit}, district) {
       if(district) {
-        const election = await API.get('vote/election/2018_be_municipal/district/' + district.key + '.json').then((request) => {
+        const election = await API.get('vote/election/2019_be_regional/district/' + district.key + '.json').then((request) => {
           Vue.i18n.add('en', {vote: request.data.i18n.en})
           Vue.i18n.add('fr', {vote: request.data.i18n.fr})
           Vue.i18n.add('nl', {vote: request.data.i18n.nl})
