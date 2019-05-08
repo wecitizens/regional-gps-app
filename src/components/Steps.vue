@@ -37,6 +37,10 @@
     props: {
       active: Number
     },
+    //created() {
+    //    console.log('Steps.vue:created: vote.current:');
+    //    console.log(this.vote.current);
+    //},
     computed: {
       ...mapGetters(['questions', 'currentQuestionKey']),
       ...mapState(['vote'])

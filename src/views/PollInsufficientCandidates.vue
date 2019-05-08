@@ -76,7 +76,8 @@
       ...mapActions(['getQuestions', 'previousQuestion', 'nextQuestion']),
     },
     created() {
-      this.$store.dispatch('getDistricts').then(() => {
+        //console.log('PollInsufficientCandidates.created');
+        this.$store.dispatch('getDistricts').then(() => {
 
         this.district_key = this.$route.params.key;
 

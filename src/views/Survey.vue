@@ -77,12 +77,13 @@
     },
     created() {
       this.$store.dispatch('getDistricts').then(() => {
+          //console.log('Survey.vue.created:');
 
         this.district_key = this.$route.params.key;
 
         const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
+        //this.$store.commit("setCurrentDistrict", district);   // JMV - commented as I don't know why we have this here again.
 
-        this.$store.commit("setCurrentDistrict", district);
         this.$store.dispatch("setCurrentElection", district);
         this.$store.dispatch('setCurrentPoll', district)
           .then(() => this.$store.dispatch('setCurrentSurvey'))

@@ -78,6 +78,7 @@ export default {
       await store.commit('setSurvey', store.rootState.survey.current.survey)
 
       if(store.state.list.data){
+        //console.log('store.questions.index.js:act.getQuestions');
         const questions = store.state.list.data.questions
         const currentQuestion = questions[0]
         currentQuestion.index = 1

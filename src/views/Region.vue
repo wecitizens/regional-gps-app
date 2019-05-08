@@ -16,26 +16,40 @@
 
             <h1>{{ $t("district.what_is_your_district") }}</h1>
             <p>{{ $t("district.help_customise_survey") }}</p><br/>
+
             <el-row>
-                <el-autocomplete class="inline-input" v-model="district" :fetch-suggestions="filterRegionalDistricts"
+                <el-autocomplete style="width:350px;" class="inline-input" v-model="district" :fetch-suggestions="filterRegionalDistricts"
                                  v-bind:placeholder="$t('input.place_holder.your_postcode')"
                                  @select="setCurrentDistrict({ district })"></el-autocomplete>
             </el-row>
             <br/>
-            <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
-                <router-link v-if="participatingCandidates >= 6" :to="'/survey/'+district_key"
-                             tag="el-button">{{ $t("button.lets_go") }}
-                </router-link>
-                <router-link v-else :to="'/insufficient-candidates/'+district_key" tag="el-button">
-                    {{$t("button.lets_go") }}
-                </router-link>
-                <div class="mt-2">
-                    {{ $t('accept_condition') }}
-                </div>
-            </el-row>
-            <el-row v-else-if="district && vote.current.election">
-                <div>{{ $t('not_enough_candidates_answered')}}</div>
-            </el-row>
+                <el-row v-if="vote.current.election">
+                    <div>vote.current.election </div>
+                    <router-link :to="'/survey/2019-05-26?'+district_code"
+                                 tag="el-button">{{ $t("button.lets_go") }}
+                    </router-link>
+                </el-row>
+                <el-row v-if="vote.current.election && vote.current.election.candidates">
+                    <div>vote.current.election.candidates </div>
+                </el-row>
+                <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
+                    <div>vote.current.election.candidates.length </div>
+                </el-row>
+             <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
+                    <router-link v-if="participatingCandidates >= 0" :to="'/survey/'+district_code"
+                                 tag="el-button">{{ $t("button.lets_go") }}
+                    </router-link>
+                    <router-link v-else :to="'/insufficient-candidates/'+district_key" tag="el-button">
+                        {{$t("button.lets_go") }}
+                    </router-link>
+                    <div class="mt-2">
+                        {{ $t('accept_condition') }}
+                    </div>
+             </el-row>
+                <el-row v-else-if="district && vote.current.election">
+                    <div>{{ $t('not_enough_candidates_answered')}}</div>
+                </el-row>
+
         </div>
     </div>
 </template>
@@ -54,53 +68,62 @@
           region: null,
         district: null,
         zip_code: null,
-        district_key: null
+        district_key: null,
+        district_code: null
       }
     },
     created() {
-      this.$store.dispatch('getDistricts');
+      this.$store.dispatch('getElectoralDistricts');
     },
     computed: {
       displayNextStepButton() {
         return true
       },
       survey() {
-        console.log(this.$store.state);
+        //console.log(this.$store.state);
         return this.$store.state.survey.current;
       },
       participatingCandidates() {
-
-        if (this.$store.state.vote.current.election.candidates.length) {
+          //console.log('participatingCandidates');
+          //console.log('current.election:'); console.log(this.$store.state.vote.current.election);
+          if (this.$store.state.vote.current.election.candidates.length) {
           let candidates = this.$store.state.vote.current.election.candidates.filter((item) => item.total_received > 0);
-          console.log('Candidates', candidates);
+          //console.log('Candidates', candidates);
           return candidates.length;
         }
-
         return 0;
       },
       ...mapState(['vote'])
     },
     methods: {
         selectRegion(data) {
-            this.$store.commit("setCurrentRegion", data);
+            this.$store.commit("Region.vue:meth.setCurrentRegion:", data);
         },
 
         setCurrentRegion(data) {
-            console.log('setCurrentRegion');
+            //console.log('Region.vue:meth.setCurrentRegion:', data);
+            this.$store.commit("setCurrentRegion", data);
+
             this.region = data;
             this.filterRegionalDistricts('BER'+data);
         },
         setCurrentDistrict(data) {
             const loading = Loading.service();
+            //console.log('Region.vue:meth.:setCurrentDistrict:', data);
+            //console.log('store.state.vote', this.$store.state.vote);
             const district = this.$store.state.vote.districtSearchResults.find(r => r.value === data.district);
+
+            //console.log('...district:', district);
+
             this.district_key = district.key;
+            this.district_code = district.code;
             this.$store.commit("setCurrentDistrict", district);
             this.$store.dispatch("setCurrentElection", district).then(() => {
                 loading.close();
             });
         },
         async filterRegionalDistricts(data, cb) {
-            console.log('filterRegionalDistricts'); console.dir(data);
+            //console.log('Region.vue:meth.filterRegionalDistricts:', data);
             await this.$store.dispatch('filterDistricts', data);
             cb(this.$store.state.vote.districtSearchResults);
         },
