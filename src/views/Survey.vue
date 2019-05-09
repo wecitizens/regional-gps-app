@@ -76,24 +76,26 @@
       }
     },
     created() {
-      this.$store.dispatch('getDistricts').then(() => {
-          //console.log('Survey.vue.created:');
+        console.log('Survey.vue.created:');
 
-        this.district_key = this.$route.params.key;
+        // JMV: I've commented this as I don't see its purpose. Seems redundant.
+        //this.$store.dispatch('getDistricts').then(() => {
+        // this.district_key = this.$route.params.key;
+        //const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
+        //this.$store.commit("setCurrentDistrict", district);
+        //this.$store.dispatch("setCurrentElection", district);
 
-        const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
-        //this.$store.commit("setCurrentDistrict", district);   // JMV - commented as I don't know why we have this here again.
-
-        this.$store.dispatch("setCurrentElection", district);
-        this.$store.dispatch('setCurrentPoll', district)
+        // currentPoll will set segment_keys from related poll json file. segment_keys is used in matching process.
+        this.$store.dispatch('setCurrentPoll', null)
           .then(() => this.$store.dispatch('setCurrentSurvey'))
           .then(() => this.getQuestions())
           .then(() => {
-            this.loading = false;
-            let $ = window.jQuery;
-            $("html, body").animate({scrollTop: $(document).height()}, 1000);
-          });
-      });
+              this.loading = false;
+              let $ = window.jQuery;
+              $("html, body").animate({scrollTop: $(document).height()}, 1000);
+          })
+      //});
+
     }
   }
 </script>
