@@ -23,17 +23,13 @@
                                  @select="setCurrentDistrict({ district })"></el-autocomplete>
             </el-row>
             <br/>
-                <el-row v-if="vote.current.election">
-                    <div>vote.current.election </div>
+                <el-row v-if="vote.current.election && vote.current.region">
                     <router-link :to="'/survey/2019-05-26?'+district_code"
                                  tag="el-button">{{ $t("button.lets_go") }}
                     </router-link>
-                </el-row>
-                <el-row v-if="vote.current.election && vote.current.election.candidates">
-                    <div>vote.current.election.candidates </div>
-                </el-row>
-                <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
-                    <div>vote.current.election.candidates.length </div>
+                    <div class="mt-2">
+                        {{ $t('accept_condition') }}
+                    </div>
                 </el-row>
              <el-row v-if="vote.current.election && vote.current.election.candidates && vote.current.election.candidates.length">
                     <router-link v-if="participatingCandidates >= 0" :to="'/survey/'+district_code"
@@ -42,9 +38,6 @@
                     <router-link v-else :to="'/insufficient-candidates/'+district_key" tag="el-button">
                         {{$t("button.lets_go") }}
                     </router-link>
-                    <div class="mt-2">
-                        {{ $t('accept_condition') }}
-                    </div>
              </el-row>
                 <el-row v-else-if="district && vote.current.election">
                     <div>{{ $t('not_enough_candidates_answered')}}</div>
