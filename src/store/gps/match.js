@@ -127,8 +127,8 @@ function performMatch(matchRequest, segmentAnswers) {
     const weights = getWeights(matchRequest);
     const samples = getSamples(matchRequest, segmentAnswers);
 
-    //console.log("My choice : ");console.log(subject);
-    //console.log("My tolerance : ");console.log(weights);
+    console.log("My choice : ");console.log(subject);
+    console.log("My tolerance : ");console.log(weights);
 
     return Object.keys(samples).map(key => {
 
@@ -136,9 +136,9 @@ function performMatch(matchRequest, segmentAnswers) {
 
         // for all subject keys, get the sample one. if it does not exist, remove the one 
 
-        //console.log('Individual - subject', subject);
-        //console.log('Individual - weight', weights);
-        //console.log('Individual - sample', sample);
+        console.log('Individual - subject', subject);
+        console.log('Individual - weight', weights);
+        console.log('Individual - sample', sample);
         
         const match = individualDistance(matchRequest.answer_formats, subject, weights, sample);
 
@@ -156,64 +156,131 @@ function performMatch(matchRequest, segmentAnswers) {
 export default {
     state: {
         current: {
-            candidateSegmentAnswers: null,
-            electoralListSegmentAnswers: null,
-            candidateScores: [],
+            candidateSegmentAnswers: [],
+            eurCandidateSegmentAnswers: [],
+            fedCandidateSegmentAnswers: [],
+            regCandidateSegmentAnswers: [],
+
+            substituteSegmentAnswers: [],
+            eurSubstituteSegmentAnswers: [],
+            fedSubstituteSegmentAnswers: [],
+            regSubstituteSegmentAnswers: [],
+
+            electoralListSegmentAnswers: [],
+            eurElectoralListSegmentAnswers: [],
+            fedElectoralListSegmentAnswers: [],
+            regElectoralListSegmentAnswers: [],
+
+            //candidateScores: [],
+            eurCandidateScores: [],
+            fedCandidateScores: [],
+            regCandidateScores: [],
+
+            // c moche..qd on n'a pas le temps d'apprendre Vue...
             substituteScores: [],
-            electoralListScores: []
+            eurSubstituteScores: [],
+            fedSubstituteScores: [],
+            regSubstituteScores: [],
+
+            // .. pour faire les choses proprement.
+            electoralListScores: [],
+            eurElectoralListScores: [],
+            fedElectoralListScores: [],
+            regElectoralListScores: []
         }
     },
     getters: {
-        currentCandidateScores: state => state.current.candidateScores,
-        currentSubstituteScores: state => state.current.substituteScores,
-        currentElectoralListScores: state => state.current.electoralListScores
+        currentEurCandidateScores: state => state.current.eurCandidateScores,
+        currentRegCandidateScores: state => state.current.regCandidateScores,
+        currentFedCandidateScores: state => state.current.fedCandidateScores,
+
+        // currentCandidateScores: state => state.current.candidateScores,
+        currentEurSubstituteScores: state => state.current.eurSubstituteScores,
+        currentRegSubstituteScores: state => state.current.regSubstituteScores,
+        currentFedSubstituteScores: state => state.current.fedSubstituteScores,
+
+        //currentElectoralListScores: state => state.current.electoralListScores
+        currentEurElectoralListScores: state => state.current.eurElectoralListScores,
+        currentRegElectoralListScores: state => state.current.regElectoralListScores,
+        currentFedElectoralListScores: state => state.current.fedElectoralListScores
+
     },
     mutations: {
         // SCORES
         setCurrentCandidateScores(state, payload) {
             console.log('setCurrentCandidateScores:');console.log(payload);
-            state.current.candidateScores = payload;
+            if (payload.electionTp=='eur') state.current.eurCandidateScores= payload.scores;
+            if (payload.electionTp=='reg') state.current.regCandidateScores= payload.scores;
+            if (payload.electionTp=='fed') state.current.fedCandidateScores= payload.scores;
         },
         setCurrentElectoralListScores(state, payload) {
             console.log('setCurrentElectoralListScores:');console.log(payload);
-            state.current.electoralListScores = payload;
+            if (payload.electionTp=='eur') state.current.eurCandidateScores= payload.scores;
+            if (payload.electionTp=='reg') state.current.regCandidateScores= payload.scores;
+            if (payload.electionTp=='fed') state.current.fedCandidateScores= payload.scores;
         },
         setCurrentSubstituteScores(state, payload) {
             console.log('setCurrentSubstituteScores:');console.log(payload);
-            state.current.substituteScores = payload;
+            if (payload.electionTp=='eur') state.current.eurSubstituteScores= payload.scores;
+            if (payload.electionTp=='reg') state.current.regSubstituteScores= payload.scores;
+            if (payload.electionTp=='fed') state.current.fedSubstituteScores= payload.scores;
         },
 
         // ANSWERS
         setCurrentCandidateSegmentAnswers(state, payload) {
-            state.current.candidateSegmentAnswers = payload;
+            //state.current.candidateSegmentAnswers[payload.electionTp] = payload.answers;
+            if (payload.electionTp=='eur') state.current.eurCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='reg') state.current.regCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='fed') state.current.fedCandidateSegmentAnswers= payload.answers;
         },
         setCurrentSubstituteSegmentAnswers(state, payload) {
-            state.current.substituteSegmentAnswers = payload;
+            //state.current.substituteSegmentAnswers[payload.electionTp] = payload.answers;
+            if (payload.electionTp=='eur') state.current.eurSubstituteSegmentAnswers= payload.answers;
+            if (payload.electionTp=='reg') state.current.regCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='fed') state.current.fedCandidateSegmentAnswers= payload.answers;
         },
         setCurrentElectoralListSegmentAnswers(state, payload) {
-            state.current.electoralListSegmentAnswers = payload;
+            //state.current.electoralListSegmentAnswers[payload.electionTp] = payload.answers;
+            if (payload.electionTp=='eur') state.current.eurCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='reg') state.current.regCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='fed') state.current.fedCandidateSegmentAnswers= payload.answers;
         }
     },
     actions: {
         async performMatch({commit}, matchRequest) {
             console.log('>> performMatch');
-            console.log('matchRequest.segment_key');
+            console.log('matchRequest:', matchRequest);
+            console.log('matchRequest.segment_key:', matchRequest.segment_key);
             const segmentAnswers = await API.get('gps/answer/segment/' + matchRequest.segment_key + '.json').then((request) => {
+                console.log(request.data.data);
                 return request.data.data;
             });
 
+            let electionTp='';
+            if (matchRequest.segment_key.includes('reg')) {
+                electionTp = 'reg';
+            }
+            if (matchRequest.segment_key.includes('fed')) {
+                electionTp = 'fed';
+            }
+            if (matchRequest.segment_key.includes('eur')) {
+                electionTp = 'eur';
+            }
+
+
+
             if (matchRequest.segment_key.includes("electoral_list")) {
                 console.log('.. electoral_list');
-                commit('setCurrentElectoralListSegmentAnswers', segmentAnswers)
+                commit('setCurrentElectoralListSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers}  )
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
                 console.log('.. candidate');
-                commit('setCurrentCandidateSegmentAnswers', segmentAnswers)
+                commit('setCurrentCandidateSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
             if (matchRequest.segment_key.includes("substitute")) {
                 console.log('.. substitute');
-                commit('setCurrentSubstituteSegmentAnswers', segmentAnswers)
+                commit('setCurrentSubstituteSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
 
             const scores = performMatch(matchRequest, segmentAnswers);
@@ -229,16 +296,16 @@ export default {
 
             if (matchRequest.segment_key.includes("electoral_list")) {
                 console.log('.. electoral_list');
-                commit('setCurrentElectoralListScores', viewScores)
+                commit('setCurrentElectoralListScores', { 'electionTp':electionTp,'scores':viewScores} )
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
                 console.log('.. candidate');
-                commit('setCurrentCandidateScores', viewScores)
+                commit('setCurrentCandidateScores', { 'electionTp':electionTp,'scores':viewScores} )
             }
             if (matchRequest.segment_key.includes("substitute")) {
                 console.log('.. substitute');
-                commit('setCurrentSubstituteScores', viewScores)
+                commit('setCurrentSubstituteScores', { 'electionTp':electionTp,'scores':viewScores}   )
             }
         }
     }
