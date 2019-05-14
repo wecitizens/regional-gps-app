@@ -78,14 +78,14 @@ export default {
       await store.commit('setSurvey', store.rootState.survey.current.survey)
 
       if(store.state.list.data){
-
-        console.log("Store", store.state);
-
+        console.log('store.questions.index.js:act.getQuestions');
         const questions = store.state.list.data.questions
         const currentQuestion = questions[0]
         currentQuestion.index = 1
         store.commit(SET_CURRENT_QUESTION, {question: currentQuestion})
         store.commit(SET_TOTAL, {total: store.state.list.data.question_order.length})
+      } else {
+        console.log('store.questions.index.js:act.getQuestions WARN NO store.state.list.data');
       }
     },
     setQuestionAgreement ({commit, state}, data) {

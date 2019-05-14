@@ -1,6 +1,7 @@
 <template>
     <div class="results">
-        <b-card no-body v-for="result in results">
+        <b-card no-body v-for="result in results" class="mt-2">
+            <h2 class="mt-2">{{ $t("choose."+result.type+"_elections") }}</h2>
             <b-tabs card>
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
@@ -29,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="" class="btn btn-primary" v-on:click="() => printDiv('print-list')">PRINT</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-outline-info" v-on:click="() => printDiv('print-list')">{{ $t("print")}}</a>
                 </b-tab>
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center">
                     <div id="print-list">
@@ -54,7 +55,7 @@
 
                     </div>
 
-                    <a href="" class="btn btn-primary d-print-none" v-on:click="() => printDiv('print-list')">PRINT</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-outline-info d-print-none" v-on:click="() => printDiv('print-list')">{{ $t("print")}}</a>
                 </b-tab>
             </b-tabs>
         </b-card>
@@ -132,115 +133,29 @@
     },
     created() {
 
-      console.log('Store', this.$store);
-
-      const poll = this.$store.state.survey.current.poll;
-      const currVote= this.$store.state.vote.current;
-      var segment_keys = [];
-      if (currVote) {
-          console.log('currVote:');console.log(currVote);
-          if (currVote.district) {
-              let reg_base_segment = '2019_be_' + currVote.district.code;
-              segment_keys.push( reg_base_segment+ '_candidate');
-              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.district EMPTY');
-          }
-          if (currVote.eurDistrict) {
-              //let eur_base_segment = '2019_be_' + currVote.eurDistrict.code;
-              let eur_base_segment = '2019_be_eur_' + currVote.eurDistrict.code;
-              //segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.eurDistrict EMPTY');
-          }
-          if (currVote.fedDistrict) {
-              //let fed_base_segment = '2019_be_' + currVote.fedDistrict.code;
-              let fed_base_segment = '2019_be_fed_' + currVote.fedDistrict.code;
-              //segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.fedDistrict EMPTY');
-          }
-          if (currVote.regDistrict) {
-              //let reg_base_segment = '2019_be_' + currVote.regDistrict.code;
-              let reg_base_segment = '2019_be_reg_' + currVote.regDistrict.code;
-              segment_keys.push( reg_base_segment+ '_candidate');
-              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.regDistrict EMPTY');
-          }
-          console.log('segment_keys:');console.log(segment_keys);
-      }
-      const survey = this.$store.state.survey.current.survey;
-
-      if (survey) {
-
-        // TODO : q.agreement is "Tout à fait d'accord" must change !!
-        // TODO : q.importance not set if not defined and same prob as before I suppose ...
-
-        const answers = this.$store.state.questions.list.data.questions
-          .map(q => {
-            return {
-              question_key: q.key,
-              answer_format: 'agr_5_scale_tol_3_scale_abs',
-              value: q.agreement,
-              tolerance: q.importance
-            }
-          }).filter(q => q.value != null);
-
-          if (typeof segment_keys !== 'undefined') {
-              console.log('segment_keys');
-              segment_keys.forEach(s =>
-                  this.$store.dispatch('performMatch', {
-                      segment_key: s,
-                      answer_formats: survey.answer_formats,
-                      answers: answers
-                  }));
-          } else {
-              console.log('poll.segment_keys UNDEFINED');
-          }
-
-
-        /*if (typeof poll.segment_keys !== 'undefined') {
-            console.log('poll.segment_keys');
-            poll.segment_keys.forEach(s =>
-            this.$store.dispatch('performMatch', {
-              segment_key: s,
-              answer_formats: survey.answer_formats,
-              answers: answers
-            }));
-        } else {
-            console.log('poll.segment_keys UNDEFINED');
-        }*/
-      } else {
-          console.log('Results : survey UNDEFINED');
-      }
     },
     mounted() {
-      // Redirect to homepage if no survey defined !
-      /*if (!this.$store.state.survey.current.poll) {
-        this.$router.push('/');
-      }*/
+
     },
     computed: {
-      ...mapGetters(['currentElection', 'currentCandidateScores', 'currentSubstituteScores', 'currentElectoralListScores',
-          'currentEurSubstituteScores', 'currentEurSubstituteScores', 'currentEurElectoralListScores',
-          'currentRegSubstituteScores', 'currentRegSubstituteScores', 'currentRegElectoralListScores',
-          'currentFedSubstituteScores', 'currentFedSubstituteScores', 'currentFedElectoralListScores'      ])
+
     },
     data() {
       return {
         showNewsletter: false,
         results: [// @todo dynamise this
           {
-            "type" : "EUROP"
+            "type" : "european"
           },
           {
-            "type" : "REGION"
+            "type" : "federal"
           },
           {
-            "type" : "COM"
+            "type" : "regional"
           },
-        ]
+        ],
+        currentRegCandidateScores: [],
+        regCurrentElectoralListScores : [],
       };
     }
   }

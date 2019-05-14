@@ -168,19 +168,25 @@ export default {
         "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn gewest."
     },
     "district": {
-        "what_is_your_district": "Mijn distrikt",
-        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn distrikt."
+        "what_is_your_district": "Mijn kieskring",
+        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn kieskring.",
+        "what_is_your_reg_district": "Mijn kieskring",
+        "what_is_your_fed_district": "Mijn federale kieskring",
+        "what_is_your_eur_district": "Mijn europese kieskring",
     },
+
     "municipality": {
         "what_is_your_postcode": "Mijn postcode",
         "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn gemeente."
     },
     "not_enough_candidates_answered": "In deze gemeente hebben minder dan zes kandidaten de vragenlijst van de KiesWijzer beantwoord. Sorry, maar we kunnen niet verder.",
+    "not_enough_candidates_answered_district": "In deze kieskring hebben minder dan zes kandidaten de vragenlijst van de KiesWijzer beantwoord. Sorry, maar we kunnen niet verder.",
     "input": {
         "place_holder": {
             "your_postcode": "xxxx"
         }
     },
     "Les listes qui partagent le plus mes convictions sont": "Hoe sterk delen de kieslijsten mijn standpunten (de kandidaten verschijnen op het ander tabblad)",
-    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)"
+    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)",
+    "print" : "Afdrukken"
 }

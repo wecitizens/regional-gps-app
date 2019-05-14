@@ -18,7 +18,7 @@
                        @click="goPrevious"><i class="fas fa-chevron-left"></i></a>
                 </div>
                 <div class="col">
-                    <a v-show="questions.current.index > 9" class="btn btn-block"
+                    <a v-show="questions.current.index > 2" class="btn btn-block"
                        @click="goResults">{{ $t("button.see_results") }} </a>
                 </div>
                 <div class="col-2">
@@ -76,27 +76,26 @@
       }
     },
     created() {
-      this.$store.dispatch('getDistricts').then(() => {
+        console.log('Survey.vue.created:');
 
-        this.district_key = this.$route.params.key;
-
-        const district = {
-          "key" : this.district_key
-        };
-
+        // JMV: I've commented this as I don't see its purpose. Seems redundant.
+        //this.$store.dispatch('getDistricts').then(() => {
+        // this.district_key = this.$route.params.key;
         //const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
+        //this.$store.commit("setCurrentDistrict", district);
+        //this.$store.dispatch("setCurrentElection", district);
 
-        this.$store.commit("setCurrentDistrict", district);
-        this.$store.dispatch("setCurrentElection", district);
-        this.$store.dispatch('setCurrentPoll', district)
+        // currentPoll will set segment_keys from related poll json file. segment_keys is used in matching process.
+        this.$store.dispatch('setCurrentPoll', null)
           .then(() => this.$store.dispatch('setCurrentSurvey'))
           .then(() => this.getQuestions())
           .then(() => {
-            this.loading = false;
-            let $ = window.jQuery;
-            $("html, body").animate({scrollTop: $(document).height()}, 1000);
-          });
-      });
+              this.loading = false;
+              let $ = window.jQuery;
+              $("html, body").animate({scrollTop: $(document).height()}, 1000);
+          })
+      //});
+
     }
   }
 </script>
