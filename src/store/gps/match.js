@@ -4,6 +4,7 @@ import API from "../_helpers/api";
 // TODO : handle more (or less) than two segment for each poll
 
 function getSubject(matchRequest) {
+    console.log('getSubject' ,matchRequest);
     return matchRequest.answers.reduce(
         (accumulator, target) => {
             const currentAnswerFormat = matchRequest.answer_formats.find(x => x.key === target.answer_format);
@@ -77,6 +78,9 @@ function getSamples(matchRequest, data) {
 }
 
 function individualDistance(answer_formats, subject, weights, set) {
+
+    //console.log('individualDistance..');
+
     let filteredSet = {};
     let filteredSubject = {};
     let filteredWeights = {};
@@ -105,38 +109,26 @@ function individualDistance(answer_formats, subject, weights, set) {
             return p + Math.pow(c * itemWeightMax, 2)
         }, 0));
 
-    console.log("Distance : ");
-    console.log(distance);
-    
-    console.log("Score");
-    console.log((1 - distance / distanceMax));
-
-    console.log("i");
-    console.log(i);
-
-    console.log("subjectLength");
-    console.log(subjectLength);
-    
-    console.log("Max weight : ");
-    console.log(itemWeightMax);
-
-    console.log("Max distance : ");
-    console.log(distanceMax);
+    //console.log("Distance : ");console.log(distance);
+    //console.log("Score");console.log((1 - distance / distanceMax));
+    //console.log("i");console.log(i);
+    //console.log("subjectLength");console.log(subjectLength);
+    //console.log("Max weight : ");console.log(itemWeightMax);
+    //console.log("Max distance : ");console.log(distanceMax);
 
     return 100 * (1 - distance / distanceMax) * (0.75 + 0.25 * i / subjectLength);
 }
 
 function performMatch(matchRequest, segmentAnswers) {
 
+    console.log('performMatch:' ,matchRequest);
+
     const subject = getSubject(matchRequest);
     const weights = getWeights(matchRequest);
     const samples = getSamples(matchRequest, segmentAnswers);
 
-    console.log("My choice : ");
-    console.log(subject);
-
-    console.log("My tolerance : ");
-    console.log(weights);
+    //console.log("My choice : ");console.log(subject);
+    //console.log("My tolerance : ");console.log(weights);
 
     return Object.keys(samples).map(key => {
 
@@ -144,15 +136,14 @@ function performMatch(matchRequest, segmentAnswers) {
 
         // for all subject keys, get the sample one. if it does not exist, remove the one 
 
-
-        console.log('Individual - subject', subject);
-        console.log('Individual - weight', weights);
-        console.log('Individual - sample', sample);
+        //console.log('Individual - subject', subject);
+        //console.log('Individual - weight', weights);
+        //console.log('Individual - sample', sample);
         
         const match = individualDistance(matchRequest.answer_formats, subject, weights, sample);
 
-        console.log('Individual - match', match);
-        console.log('Individual - user_key', key);
+        //console.log('Individual - match', match);
+        //console.log('Individual - user_key', key);
 
         return {
             user_key: key,
@@ -168,22 +159,36 @@ export default {
             candidateSegmentAnswers: null,
             electoralListSegmentAnswers: null,
             candidateScores: [],
+            substituteScores: [],
             electoralListScores: []
         }
     },
     getters: {
         currentCandidateScores: state => state.current.candidateScores,
+        currentSubstituteScores: state => state.current.substituteScores,
         currentElectoralListScores: state => state.current.electoralListScores
     },
     mutations: {
+        // SCORES
         setCurrentCandidateScores(state, payload) {
+            console.log('setCurrentCandidateScores:');console.log(payload);
             state.current.candidateScores = payload;
         },
         setCurrentElectoralListScores(state, payload) {
+            console.log('setCurrentElectoralListScores:');console.log(payload);
             state.current.electoralListScores = payload;
         },
+        setCurrentSubstituteScores(state, payload) {
+            console.log('setCurrentSubstituteScores:');console.log(payload);
+            state.current.substituteScores = payload;
+        },
+
+        // ANSWERS
         setCurrentCandidateSegmentAnswers(state, payload) {
             state.current.candidateSegmentAnswers = payload;
+        },
+        setCurrentSubstituteSegmentAnswers(state, payload) {
+            state.current.substituteSegmentAnswers = payload;
         },
         setCurrentElectoralListSegmentAnswers(state, payload) {
             state.current.electoralListSegmentAnswers = payload;
@@ -191,23 +196,29 @@ export default {
     },
     actions: {
         async performMatch({commit}, matchRequest) {
-
+            console.log('>> performMatch');
+            console.log('matchRequest.segment_key');
             const segmentAnswers = await API.get('gps/answer/segment/' + matchRequest.segment_key + '.json').then((request) => {
                 return request.data.data;
             });
 
             if (matchRequest.segment_key.includes("electoral_list")) {
+                console.log('.. electoral_list');
                 commit('setCurrentElectoralListSegmentAnswers', segmentAnswers)
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
+                console.log('.. candidate');
                 commit('setCurrentCandidateSegmentAnswers', segmentAnswers)
+            }
+            if (matchRequest.segment_key.includes("substitute")) {
+                console.log('.. substitute');
+                commit('setCurrentSubstituteSegmentAnswers', segmentAnswers)
             }
 
             const scores = performMatch(matchRequest, segmentAnswers);
 
-            console.log("My scores : ");
-            console.log(scores);
+            console.log("*** My scores : ");console.log(scores);
 
             const viewScores = scores
                 .sort((a, b) => -(a.score - b.score))
@@ -217,11 +228,17 @@ export default {
                 });
 
             if (matchRequest.segment_key.includes("electoral_list")) {
+                console.log('.. electoral_list');
                 commit('setCurrentElectoralListScores', viewScores)
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
+                console.log('.. candidate');
                 commit('setCurrentCandidateScores', viewScores)
+            }
+            if (matchRequest.segment_key.includes("substitute")) {
+                console.log('.. substitute');
+                commit('setCurrentSubstituteScores', viewScores)
             }
         }
     }
