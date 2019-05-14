@@ -169,8 +169,12 @@ export default {
     },
     "district": {
         "what_is_your_district": "Mijn kieskring",
-        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn kieskring."
+        "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn kieskring.",
+        "what_is_your_reg_district": "mijn kieskring",
+        "what_is_your_fed_district": "mijn federale kieskring",
+        "what_is_your_eur_district": "mijn europese kieskring",
     },
+
     "municipality": {
         "what_is_your_postcode": "Mijn postcode",
         "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn gemeente."

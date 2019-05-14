@@ -175,8 +175,11 @@ export default {
         "help_customise_survey": "Je recevrai le classement des candidats de ma commune."
     },
     "district": {
-        "what_is_your_district": "Mon district électoral",
-        "help_customise_survey": "Je recevrai le classement des candidats de mon district..."
+        "what_is_your_district": "mon district électoral",
+        "help_customise_survey": "Je recevrai le classement des candidats de mon district...",
+        "what_is_your_reg_district": "mon district électoral régional",
+        "what_is_your_fed_district": "mon district électoral fédéral ",
+        "what_is_your_eur_district": "mon district électoral européen",
     },
     "not_enough_candidates_answered": "Dans cette commune, moins de six candidats ont répondu au questionnaire du GPS électoral. Désolé, mais la procédure s'arrête ici.",
     "not_enough_candidates_answered_district": "Dans ce district, moins de six candidats ont répondu au questionnaire du GPS électoral. Désolé, mais la procédure s'arrête ici.",

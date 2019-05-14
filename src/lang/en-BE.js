@@ -169,7 +169,10 @@ export default {
     },
     "district": {
         "what_is_your_district": "Electoral district",
-        "help_customise_survey": "I will receive the ranking of candidates in my electoral district."
+        "help_customise_survey": "I will receive the ranking of candidates in my electoral district.",
+        "what_is_your_reg_district": "My Regional electoral district",
+        "what_is_your_fed_district": "My Federal electoral district",
+        "what_is_your_eur_district": "My European electoral district",
     },
     "municipality": {
         "what_is_your_postcode": "My postal code",
