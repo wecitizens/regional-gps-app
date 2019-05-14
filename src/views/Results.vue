@@ -95,6 +95,7 @@
         return this.currentElection.electoral_lists.find(e => e.key == score.user_key);
       },
       extractCandidate(score) {
+        console.log('extractCandidate');
         let group = this.currentElection.electoral_lists
           .filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0]
         let candidate = this.currentElection.candidates.find(p => p.key == score.user_key)
@@ -115,7 +116,9 @@
         }
       },
       extractList(score) {
-        let list = this.getElectoralListForScore(score)
+          console.log('extractList');
+
+          let list = this.getElectoralListForScore(score)
         if (list) {
           return {
             name: this.$t('vote.' + list.name),
@@ -132,7 +135,38 @@
       console.log('Store', this.$store);
 
       const poll = this.$store.state.survey.current.poll;
-
+      const currVote= this.$store.state.vote.current;
+      var segment_keys = [];
+      if (currVote) {
+          console.log('currVote:');console.log(currVote);
+          if (currVote.district) {
+              let reg_base_segment = '2019_be_all_be_' + currVote.district.code;
+              segment_keys.push( reg_base_segment+ '_candidate');
+              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
+          } else {
+              console.log('currVote.district EMPTY');
+          }
+          if (currVote.regDistrict) {
+              let reg_base_segment = '2019_be_all_be_' + currVote.regDistrict.code;
+              segment_keys.push( reg_base_segment+ '_candidate');
+              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
+          } else {
+              console.log('currVote.regDistrict EMPTY');
+          }
+          if (currVote.fedDistrict) {
+              let fed_base_segment = '2019_be_all_be_' + currVote.fedDistrict.code;
+              //segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
+          } else {
+              console.log('currVote.fedDistrict EMPTY');
+          }
+          if (currVote.eurDistrict) {
+              let eur_base_segment = '2019_be_all_be_' + 'EN';
+              //segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list'   );
+          } else {
+              console.log('currVote.eurDistrict EMPTY');
+          }
+          console.log('segment_keys:');console.log(segment_keys);
+      }
       const survey = this.$store.state.survey.current.survey;
 
       if (survey) {
@@ -150,14 +184,32 @@
             }
           }).filter(q => q.value != null);
 
-        if (typeof poll.segment_keys !== 'undefined') {
-          poll.segment_keys.forEach(s =>
+          if (typeof segment_keys !== 'undefined') {
+              console.log('segment_keys');
+              segment_keys.forEach(s =>
+                  this.$store.dispatch('performMatch', {
+                      segment_key: s,
+                      answer_formats: survey.answer_formats,
+                      answers: answers
+                  }));
+          } else {
+              console.log('poll.segment_keys UNDEFINED');
+          }
+
+
+        /*if (typeof poll.segment_keys !== 'undefined') {
+            console.log('poll.segment_keys');
+            poll.segment_keys.forEach(s =>
             this.$store.dispatch('performMatch', {
               segment_key: s,
               answer_formats: survey.answer_formats,
               answers: answers
             }));
-        }
+        } else {
+            console.log('poll.segment_keys UNDEFINED');
+        }*/
+      } else {
+          console.log('Results : survey UNDEFINED');
       }
     },
     mounted() {
@@ -172,7 +224,7 @@
     },
     data() {
       return {
-        showNewsletter: true
+        showNewsletter: false
       };
     }
   }
