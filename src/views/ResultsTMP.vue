@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <a :v-if="result.type === 'regional'" href="" class="btn btn-primary" v-on:click="() => printDiv('print-list')">PRINT</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-outline-info" v-on:click="() => printDiv('print-list')">{{ $t("print")}}</a>
                 </b-tab>
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center">
                     <div id="print-list">
@@ -55,7 +55,7 @@
 
                     </div>
 
-                    <a :v-if="result.type === 'regional'" href="" class="btn btn-primary d-print-none" v-on:click="() => printDiv('print-list')">IMPRIMER</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-outline-info d-print-none" v-on:click="() => printDiv('print-list')">{{ $t("print")}}</a>
                 </b-tab>
             </b-tabs>
         </b-card>
