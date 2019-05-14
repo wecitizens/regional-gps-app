@@ -4,7 +4,7 @@
             <b-tabs card>
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
-                    <div class="row list-item" v-for="(item, idx) in currentCandidateScores.map(extractCandidate)"
+                    <div class="row list-item" v-for="(item, idx) in currentRegCandidateScores.map(extractCandidate)"
                          :key="idx" v-bind:class="{ disabled: !item.has_answered }" v-if="item.score">
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
@@ -34,7 +34,7 @@
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center">
                     <div id="print-list">
                     <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
-                    <div class="row list-item" v-for="(item, idx) in currentElectoralListScores.map(extractList)"
+                    <div class="row list-item" v-for="(item, idx) in regCurrentElectoralListScores.map(extractList)"
                          :key="idx">
                         <div class="col-3 d-none">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
@@ -140,30 +140,33 @@
       if (currVote) {
           console.log('currVote:');console.log(currVote);
           if (currVote.district) {
-              let reg_base_segment = '2019_be_all_be_' + currVote.district.code;
+              let reg_base_segment = '2019_be_' + currVote.district.code;
               segment_keys.push( reg_base_segment+ '_candidate');
               //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
           } else {
               console.log('currVote.district EMPTY');
           }
+          if (currVote.eurDistrict) {
+              //let eur_base_segment = '2019_be_' + currVote.eurDistrict.code;
+              let eur_base_segment = '2019_be_eur_' + currVote.eurDistrict.code;
+              //segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
+          } else {
+              console.log('currVote.eurDistrict EMPTY');
+          }
+          if (currVote.fedDistrict) {
+              //let fed_base_segment = '2019_be_' + currVote.fedDistrict.code;
+              let fed_base_segment = '2019_be_fed_' + currVote.fedDistrict.code;
+              //segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list' );
+          } else {
+              console.log('currVote.fedDistrict EMPTY');
+          }
           if (currVote.regDistrict) {
-              let reg_base_segment = '2019_be_all_be_' + currVote.regDistrict.code;
+              //let reg_base_segment = '2019_be_' + currVote.regDistrict.code;
+              let reg_base_segment = '2019_be_reg_' + currVote.regDistrict.code;
               segment_keys.push( reg_base_segment+ '_candidate');
               //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
           } else {
               console.log('currVote.regDistrict EMPTY');
-          }
-          if (currVote.fedDistrict) {
-              let fed_base_segment = '2019_be_all_be_' + currVote.fedDistrict.code;
-              //segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.fedDistrict EMPTY');
-          }
-          if (currVote.eurDistrict) {
-              let eur_base_segment = '2019_be_all_be_' + 'EN';
-              //segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list'   );
-          } else {
-              console.log('currVote.eurDistrict EMPTY');
           }
           console.log('segment_keys:');console.log(segment_keys);
       }
@@ -220,7 +223,10 @@
       }
     },
     computed: {
-      ...mapGetters(['currentElection', 'currentCandidateScores', 'currentElectoralListScores'])
+      ...mapGetters(['currentElection', 'currentCandidateScores', 'currentSubstituteScores', 'currentElectoralListScores',
+          'currentEurSubstituteScores', 'currentEurSubstituteScores', 'currentEurElectoralListScores',
+          'currentRegSubstituteScores', 'currentRegSubstituteScores', 'currentRegElectoralListScores',
+          'currentFedSubstituteScores', 'currentFedSubstituteScores', 'currentFedElectoralListScores'      ])
     },
     data() {
       return {
