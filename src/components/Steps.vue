@@ -7,7 +7,7 @@
         </el-step>
         <el-step :index="2">
             <template slot="title">
-                <router-link v-if="vote.current.election" :to="'/survey/'+vote.current.district.key">2.{{
+                <router-link v-if="vote.current.election" :to="'/survey/2019-05-26'">2.{{
                     $t('menu.item.questions') }}
                 </router-link>
                 <span v-else>2.{{ $t('menu.item.questions') }}</span>
