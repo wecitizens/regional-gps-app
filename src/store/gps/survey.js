@@ -16,7 +16,7 @@ export default {
       state.current.poll = payload
     },
     setCurrentSurvey (state, payload) {
-      //console.log('survey.js:setCurrentSurvey', payload);
+      console.log('survey.js:setCurrentSurvey', payload);
       state.current.survey = payload
     }
   },
