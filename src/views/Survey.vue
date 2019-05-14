@@ -18,7 +18,7 @@
                        @click="goPrevious"><i class="fas fa-chevron-left"></i></a>
                 </div>
                 <div class="col">
-                    <a v-show="questions.current.index > 6" class="btn btn-block"
+                    <a v-show="questions.current.index > 2" class="btn btn-block"
                        @click="goResults">{{ $t("button.see_results") }} </a>
                 </div>
                 <div class="col-2">

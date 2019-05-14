@@ -10,6 +10,7 @@ import Stats from './views/Stats.vue'
 import Translations from './views/Translations.vue'
 import Questions from './views/Questions.vue'
 import PollInsufficientCandidates from './views/PollInsufficientCandidates.vue'
+import ResultsTMP from "./views/ResultsTMP";
 
 Vue.use(Router)
 
@@ -69,6 +70,11 @@ export default new Router({
       path: '/results',
       name: 'results',
       component: Results
+    },
+    {
+      path: '/results/:key',
+      name: 'result',
+      component: ResultsTMP
     },
     {
       path: '/translations',
