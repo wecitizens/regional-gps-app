@@ -187,5 +187,6 @@ export default {
         }
     },
     "Les listes qui partagent le plus mes convictions sont": "Hoe sterk delen de kieslijsten mijn standpunten (de kandidaten verschijnen op het ander tabblad)",
-    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)"
+    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)",
+    "print" : "Afdrukken"
 }

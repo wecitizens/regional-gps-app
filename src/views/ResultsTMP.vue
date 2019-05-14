@@ -1,7 +1,7 @@
 <template>
     <div class="results">
-        <b-card no-body v-for="result in results">
-            <h2 class="m-2">{{ result.type }}</h2>
+        <b-card no-body v-for="result in results" class="mt-2">
+            <h2 class="mt-2">{{ $t("choose."+result.type+"_elections") }}</h2>
             <b-tabs card>
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="" class="btn btn-primary" v-on:click="() => printDiv('print-list')">PRINT</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-primary" v-on:click="() => printDiv('print-list')">PRINT</a>
                 </b-tab>
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center">
                     <div id="print-list">
@@ -55,7 +55,7 @@
 
                     </div>
 
-                    <a href="" class="btn btn-primary d-print-none" v-on:click="() => printDiv('print-list')">IMPRIMER</a>
+                    <a :v-if="result.type === 'regional'" href="" class="btn btn-primary d-print-none" v-on:click="() => printDiv('print-list')">IMPRIMER</a>
                 </b-tab>
             </b-tabs>
         </b-card>
@@ -145,13 +145,13 @@
         showNewsletter: false,
         results: [// @todo dynamise this
           {
-            "type" : "EUROP"
+            "type" : "european"
           },
           {
-            "type" : "REGION"
+            "type" : "federal"
           },
           {
-            "type" : "COM"
+            "type" : "regional"
           },
         ],
         currentRegCandidateScores: [],
