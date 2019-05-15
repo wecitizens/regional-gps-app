@@ -127,8 +127,8 @@ function performMatch(matchRequest, segmentAnswers) {
     const weights = getWeights(matchRequest);
     const samples = getSamples(matchRequest, segmentAnswers);
 
-    console.log("My choice : ");console.log(subject);
-    console.log("My tolerance : ");console.log(weights);
+    //console.log("My choice : ");console.log(subject);
+    //console.log("My tolerance : ");console.log(weights);
 
     return Object.keys(samples).map(key => {
 
@@ -136,9 +136,9 @@ function performMatch(matchRequest, segmentAnswers) {
 
         // for all subject keys, get the sample one. if it does not exist, remove the one 
 
-        console.log('Individual - subject', subject);
-        console.log('Individual - weight', weights);
-        console.log('Individual - sample', sample);
+        //console.log('Individual - subject', subject);
+        //console.log('Individual - weight', weights);
+        //console.log('Individual - sample', sample);
         
         const match = individualDistance(matchRequest.answer_formats, subject, weights, sample);
 
@@ -186,7 +186,16 @@ export default {
             electoralListScores: [],
             eurElectoralListScores: [],
             fedElectoralListScores: [],
-            regElectoralListScores: []
+            regElectoralListScores: [],
+
+            eurDistrictLists:null,
+            fedDistrictLists:null,
+            regDistrictLists:null,
+
+            eurCandidates: [],
+            fedCandidates: [],
+            regCandidates: []
+
         }
     },
     getters: {
@@ -202,10 +211,46 @@ export default {
         //currentElectoralListScores: state => state.current.electoralListScores
         currentEurElectoralListScores: state => state.current.eurElectoralListScores,
         currentRegElectoralListScores: state => state.current.regElectoralListScores,
-        currentFedElectoralListScores: state => state.current.fedElectoralListScores
+        currentFedElectoralListScores: state => state.current.fedElectoralListScores,
 
+        eurCandidates: state => state.current.eurCandidates,
+        fedCandidates: state => state.current.fedCandidates,
+        regCandidates: state => state.current.regCandidates,
+
+        eurSubstitutes: state => state.current.eurSubstitutes,
+        fedSubstitutes: state => state.current.fedSubstitutes,
+        regSubstitutes: state => state.current.regSubstitutes,
+
+        eurDistrictLists: state => state.current.eurDistrictLists,
+        fedDistrictLists: state => state.current.fedDistrictLists,
+        regDistrictLists: state => state.current.regDistrictLists
     },
     mutations: {
+
+        setCurrentEurDistrictLists (state, payload) {
+            state.current.eurDistrictLists = payload
+        },
+        setCurrentFedDistrictLists(state, payload) {
+            state.current.fedDistrictLists = payload
+        },
+        setCurrentRegDistrictLists (state, payload) {
+            console.log('vote.js:mut.setCurrentRegDistrictLists', payload);
+            state.current.regDistrictLists = payload
+        },
+
+        setCurrentEurCandidates (state, payload) {
+            console.log('vote.js:mut.setCurrentEurCandidates', payload);
+            state.current.eurCandidates = payload
+        },
+        setCurrentFedCandidates (state, payload) {
+            console.log('vote.js:mut.setCurrentFedCandidates', payload);
+            state.current.fedCandidates = payload
+        },
+        setCurrentRegCandidates (state, payload) {
+            console.log('vote.js:mut.setCurrentRegCandidates', payload);
+            state.current.regCandidates = payload
+        },
+
         // SCORES
         setCurrentCandidateScores(state, payload) {
             console.log('setCurrentCandidateScores:');console.log(payload);
@@ -247,6 +292,52 @@ export default {
         }
     },
     actions: {
+
+        async getFedDistrictLists({ commit }, data) {
+            console.log('match.js:act.getFedDistrictLists:');
+
+            let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
+            console.log(endpoint);
+
+            const elDistrictData = await API.get('vote/election/2019_be/district/be_'+data.code+'.json', data)
+                .then((request) => {
+                    console.log(request.data);
+                    return request.data
+                })
+            commit('setCurrentFedDistrictLists', elDistrictData.electoral_lists)
+            commit('setCurrentFedCandidates', elDistrictData.candidates);
+
+        },
+        async getRegDistrictLists({ commit }, data) {
+            console.log('match.js:act.getRegDistrictLists:');
+
+            let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
+            console.log(endpoint);
+
+            const elDistrictData = await API.get(endpoint, data)
+                .then((request) => {
+                    console.log(request.data);
+                    return request.data
+                })
+            commit('setCurrentRegDistrictLists', elDistrictData.electoral_lists)
+            commit('setCurrentRegCandidates', elDistrictData.candidates);
+        },
+        async getEurDistrictLists({ commit }, data) {
+            console.log('match.js:act.getEurDistrictLists:');
+
+            let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
+            console.log(endpoint);
+
+            const elDistrictData = await API.get(endpoint, data)
+                .then((request) => {
+                    console.log(request.data);
+                    return request.data
+                })
+            commit('setCurrentEurDistrictLists', elDistrictData.electoral_lists)
+            commit('setCurrentEurCandidates', elDistrictData.candidates);
+        },
+
+
         async performMatch({commit}, matchRequest) {
             console.log('>> performMatch');
             console.log('matchRequest:', matchRequest);
@@ -270,22 +361,21 @@ export default {
 
 
             if (matchRequest.segment_key.includes("electoral_list")) {
-                console.log('.. electoral_list');
+                console.log('.. for electoral_list s:');
                 commit('setCurrentElectoralListSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers}  )
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
-                console.log('.. candidate');
+                console.log(' .. for candidates');
                 commit('setCurrentCandidateSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
             if (matchRequest.segment_key.includes("substitute")) {
-                console.log('.. substitute');
+                console.log(' .. for substitutes');
                 commit('setCurrentSubstituteSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
 
             const scores = performMatch(matchRequest, segmentAnswers);
 
-            console.log("*** My scores : ");console.log(scores);
 
             const viewScores = scores
                 .sort((a, b) => -(a.score - b.score))
@@ -293,6 +383,8 @@ export default {
                     s.score = s.score.toFixed(2);
                     return s;
                 });
+
+            console.log('** SORTED SCORES: '); console.log(viewScores);
 
             if (matchRequest.segment_key.includes("electoral_list")) {
                 console.log('.. electoral_list');

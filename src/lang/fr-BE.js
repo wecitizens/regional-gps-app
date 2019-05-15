@@ -40,7 +40,8 @@ export default {
     "importance_5": "Tout à fait d'accord",
     "title": {
         "parties": "Listes",
-        "candidates": "Candidats"
+        "candidates": "Candidats",
+        "substitutes": "Suppléants"
     },
     "PayPal-button": "Faire un don par PayPal",
     "button": {
