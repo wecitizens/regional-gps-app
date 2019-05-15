@@ -37,7 +37,8 @@ export default {
     "importance_5": "Helemaal akkoord",
     "title": {
         "parties": "Kieslijsten",
-        "candidates": "Kandidaten"
+        "candidates": "Kandidaten",
+        "substitutes": "Kandidaten"
     },
     "PayPal-button": "Ik doe een gift via PayPal",
     "button": {
