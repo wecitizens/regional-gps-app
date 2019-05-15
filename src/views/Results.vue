@@ -1,6 +1,6 @@
 <template>
     <div class="results">
-        <b-card no-body>
+        <b-card no-body v-for="result in results">
             <b-tabs card>
 
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
@@ -459,11 +459,10 @@
       }
     },
     mounted() {
-
       // Redirect to homepage if no survey defined !
-      if (!this.$store.state.survey.current.poll) {
+      /*if (!this.$store.state.survey.current.poll) {
         this.$router.push('/');
-      }
+      }*/
     },
     computed: {
       ...mapGetters(['currentElection', 'currentCandidateScores', 'currentSubstituteScores', 'currentElectoralListScores',
@@ -476,7 +475,18 @@
     },
     data() {
       return {
-        showNewsletter: false
+        showNewsletter: false,
+        results: [// @todo dynamise this
+          {
+            "type" : "EUROP"
+          },
+          {
+            "type" : "REGION"
+          },
+          {
+            "type" : "COM"
+          },
+        ]
       };
     }
   }

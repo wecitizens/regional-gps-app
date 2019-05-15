@@ -10,26 +10,31 @@
             </div>
         </div>
             <div class="text-center container mt-5">
+
+
              <el-row v-if="vote.current.region" >
                  <h5>{{ $t("district.what_is_your_eur_district") }}:</h5>
-                    <el-autocomplete style="width:350px;" class="inline-input" v-model="eurDistrict" :fetch-suggestions="filterEurDistricts"
-                     @select="setCurrentEurDistrict({ eurDistrict })"></el-autocomplete>
+                 <el-autocomplete style="width:350px;" class="inline-input" v-model="eurDistrict"
+                                  :fetch-suggestions="filterEurDistricts"
+                                  @select="setCurrentEurDistrict({ eurDistrict })"></el-autocomplete>
              </el-row >
                 <br>
                 <el-row  v-if="vote.current.region" >
                     <h5>{{ $t("district.what_is_your_fed_district") }}:</h5>
-                    <el-autocomplete style="width:350px;" class="inline-input" v-model="fedDistrict" :fetch-suggestions="filterFedDistricts"
-                     @select="setCurrentFedDistrict({ fedDistrict })"></el-autocomplete>
+                    <el-autocomplete style="width:350px;" class="inline-input" v-model="fedDistrict"
+                                     :fetch-suggestions="filterFedDistricts"
+                                     @select="setCurrentFedDistrict({ fedDistrict })"></el-autocomplete>
                 </el-row>
                 <br>
                 <el-row  v-if="vote.current.region" >
                     <h5>{{ $t("district.what_is_your_reg_district") }}:</h5>
-                    <el-autocomplete style="width:350px;" class="inline-input" v-model="regDistrict" :fetch-suggestions="filterRegDistricts"
+                    <el-autocomplete style="width:350px;" class="inline-input" v-model="regDistrict"
+                                     :fetch-suggestions="filterRegDistricts"
                                      @select="setCurrentRegDistrict({ regDistrict })"></el-autocomplete>
                 </el-row>
                 <br/>
-                <!--el-row v-if="vote.current.election && vote.current.region && vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict"-->
-                    <el-row v-if="vote.current.election && vote.current.region && vote.current.regDistrict ">
+
+                <el-row v-if="vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict">
                     <router-link :to="'/survey/2019-05-26?'+region"
                                  tag="el-button">{{ $t("button.lets_go") }}
                     </router-link>
@@ -46,7 +51,7 @@
 
   import {mapState} from 'vuex';
   import Steps from '../components/Steps';
-  import { Loading } from 'element-ui';
+  import {Loading} from 'element-ui';
 
   export default {
     name: 'region',
@@ -91,9 +96,9 @@
         return this.$store.state.survey.current;
       },
       participatingCandidates() {
-          //console.log('participatingCandidates');
-          //console.log('current.election:'); console.log(this.$store.state.vote.current.election);
-          if (this.$store.state.vote.current.election.candidates.length) {
+        //console.log('participatingCandidates');
+        //console.log('current.election:'); console.log(this.$store.state.vote.current.election);
+        if (this.$store.state.vote.current.election.candidates.length) {
           let candidates = this.$store.state.vote.current.election.candidates.filter((item) => item.total_received > 0);
           //console.log('Candidates', candidates);
           return candidates.length;
@@ -103,9 +108,6 @@
       ...mapState(['vote'])
     },
     methods: {
-        selectRegion(data) {
-            this.$store.commit("Region.vue:meth.setCurrentRegion:", data);
-        },
 
         setCurrentRegion(data) {
             console.log('Region.vue:meth.setCurrentRegion:', data);

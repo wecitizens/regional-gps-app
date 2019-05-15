@@ -187,5 +187,6 @@ export default {
         }
     },
     "Les listes qui partagent le plus mes convictions sont": "Matching with electoral lists (see also the other tab)",
-    "Les candidats qui partagent le plus mes convictions sont": "Matching with candidates (see also the other tab)"
+    "Les candidats qui partagent le plus mes convictions sont": "Matching with candidates (see also the other tab)",
+    "print" : "Print"
 }

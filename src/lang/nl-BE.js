@@ -171,9 +171,9 @@ export default {
     "district": {
         "what_is_your_district": "Mijn kieskring",
         "help_customise_survey": "Ik krijg een rangschikking beperkt tot de kandidaten van mijn kieskring.",
-        "what_is_your_reg_district": "mijn kieskring",
-        "what_is_your_fed_district": "mijn federale kieskring",
-        "what_is_your_eur_district": "mijn europese kieskring",
+        "what_is_your_reg_district": "Mijn kieskring",
+        "what_is_your_fed_district": "Mijn federale kieskring",
+        "what_is_your_eur_district": "Mijn europese kieskring",
     },
 
     "municipality": {
@@ -188,5 +188,6 @@ export default {
         }
     },
     "Les listes qui partagent le plus mes convictions sont": "Hoe sterk delen de kieslijsten mijn standpunten (de kandidaten verschijnen op het ander tabblad)",
-    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)"
+    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)",
+    "print" : "Afdrukken"
 }
