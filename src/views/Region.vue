@@ -28,8 +28,9 @@
                                      @select="setCurrentRegDistrict({ regDistrict })"></el-autocomplete>
                 </el-row>
                 <br/>
-                <el-row v-if="vote.current.election && vote.current.region && vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict">
-                    <router-link :to="'/survey/2019-05-26?'+district_code"
+                <!--el-row v-if="vote.current.election && vote.current.region && vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict"-->
+                    <el-row v-if="vote.current.election && vote.current.region && vote.current.regDistrict ">
+                    <router-link :to="'/survey/2019-05-26?'+region"
                                  tag="el-button">{{ $t("button.lets_go") }}
                     </router-link>
                     <div class="mt-2">
@@ -68,6 +69,11 @@
         fed_district_code: null
       }
     },
+
+     getters: {
+         region: state => state.current.region,
+     },
+
     created() {
       //this.$store.dispatch('getElectoralDistricts');
       this.$store.dispatch('getEurElectoralDistricts');
@@ -102,7 +108,7 @@
         },
 
         setCurrentRegion(data) {
-            //console.log('Region.vue:meth.setCurrentRegion:', data);
+            console.log('Region.vue:meth.setCurrentRegion:', data);
             this.$store.commit("setCurrentRegion", data);
 
             this.region = data;
@@ -110,7 +116,6 @@
             this.$store.dispatch("setCurrentElection", null).then(() => {
                 //loading.close();
             });
-
         },
 
         setCurrentEurDistrict(data) {
@@ -124,7 +129,10 @@
             this.eur_district_key = eurDistrict.key;
             this.eur_district_code = eurDistrict.code;
             this.$store.commit("setCurrentEurDistrict", eurDistrict);
-            loading.close();
+
+            this.$store.dispatch("getEurDistrictLists", eurDistrict).then(() => {
+                loading.close();
+            });
         },
 
         setCurrentRegDistrict(data) {
@@ -137,8 +145,12 @@
             this.reg_district_key = regDistrict.key;
             this.reg_district_code = regDistrict.code;
             this.$store.commit("setCurrentRegDistrict", regDistrict);
-            loading.close();
+
+            this.$store.dispatch("getRegDistrictLists", regDistrict).then(() => {
+                loading.close();
+            });
         },
+
         setCurrentFedDistrict(data) {
             const loading = Loading.service();
             //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
@@ -149,7 +161,10 @@
             this.fed_district_key = fedDistrict.key;
             this.fed_district_code = fedDistrict.code;
             this.$store.commit("setCurrentFedDistrict", fedDistrict);
-            loading.close();
+
+            this.$store.dispatch("getFedDistrictLists", fedDistrict).then(() => {
+                loading.close();
+            });
         },
 
         setCurrentDistrict(data) {
