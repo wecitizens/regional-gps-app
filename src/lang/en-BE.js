@@ -37,7 +37,8 @@ export default {
     "importance_5": "Fully agree",
     "title": {
         "parties": "Candidate list",
-        "candidates": "Candidates"
+        "candidates": "Candidates",
+        "substitutes": "Substitutes"
     },
     "PayPal-button": "Donate (using PayPal)",
     "button": {
