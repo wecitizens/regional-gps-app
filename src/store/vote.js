@@ -10,12 +10,13 @@ export default {
       fedDistrict: null,
       eurDistrict: null,
       election: null,
-      surveyKey: null
+      surveyKey: null,
     },
     districts: [],
     eurDistricts: [],
     fedDistricts: [],
     regDistricts: [],
+
     districtSearchResults: [],
     eurDistrictSearchResults: [],
     fedDistrictSearchResults: [],
@@ -23,7 +24,7 @@ export default {
   },
   mutations: {
     setCurrentRegion(state, payload) {
-      //console.log('vote.js:mut.setCurrentRegion', payload);
+      console.log('vote.js:mut.setCurrentRegion', payload);
       state.current.region= payload
     },
     setCurrentSurveyKey(state, payload) {
@@ -133,6 +134,7 @@ export default {
       commit('setFedDistricts', elDistricts)
     },
 
+
     async getElectoralDistricts({ commit }, data) {
       //console.log('vote.js:act.getElectoralDistricts:');
       const elDistricts= await API.get('vote/electoral-districts.json', data)
@@ -147,6 +149,7 @@ export default {
 
       commit('setDistricts', elDistricts)
     },
+
     filterDistricts ({commit, state}, queryString) {
       //console.log('vote.js:act.filterDistricts ');
       const districts = state.districts.map(m => {
@@ -203,6 +206,7 @@ export default {
       const results = queryString ? fedDistricts.filter(createFedDistrictFilter(queryString)) : fedDistricts
       commit('setFedDistrictSearchResults', results)
     },
+
     async setCurrentMunicipalElection ({commit}, district) {
       if(district) {
         const election = await API.get('vote/election/2019_be_regional/district/' + district.key + '.json').then((request) => {
@@ -217,7 +221,9 @@ export default {
         console.log('District undefined !');
       }
     },
+
     async setCurrentElection ({commit}, someData) {
+        //  where 2019_be_reg_fed_eur.json   is a file...
         const election = await API.get('vote/election/2019_be_reg_fed_eur.json').then((request) => {
           //console.log('vote.js:act.setCurrentElection'); console.log(request.data.i18n);
           Vue.i18n.add('en', {vote: request.data.i18n.en})
@@ -230,6 +236,7 @@ export default {
     }
   },
   getters: {
+    region: state => state.current.region,
     districts: state => state.districts,
     districtSearchResults: state => state.districtSearchResults,
     currentElection: state => state.current.election
