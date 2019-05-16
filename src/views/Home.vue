@@ -20,11 +20,6 @@
         <footer class="footer container-fluid">
             <div class="row">
                 <div class="col text-center">
-                    <div class="mb-2">{{ $t("home.with_help_from") }}</div>
-                    <img src="/img/partner-metro.png" height="20" class="m-2">
-                    <img src="/img/partner-sudpress.png" height="20" class="m-2">
-                    <img src="/img/partner-levif.png" height="20" class="m-2">
-                    <img src="/img/partner-knack.png" height="20" class="m-2">
                 </div>
             </div>
         </footer>
