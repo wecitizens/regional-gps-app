@@ -189,7 +189,8 @@ export default {
             "your_postcode": "xxxx"
         }
     },
-    "Les listes qui partagent le plus mes convictions sont": "Mon degré d'affinité politique avec les listes électorales (pour les candidats, voir l'autre onglet)",
-    "Les candidats qui partagent le plus mes convictions sont": "Mon degré d'affinité politique avec les candidats (pour les listes électorales, voir l'autre onglet)",
+    "Les listes qui partagent le plus mes convictions sont": "Mon degré d'affinité politique avec les listes électorales",
+    "Les candidats qui partagent le plus mes convictions sont": "Mon degré d'affinité politique avec les candidats ",
+    "Les suppléants qui partagent le plus mes convictions sont": "Mon degré d'affinité politique avec les suppléants ",
     "print" : "Imprimer"
 }

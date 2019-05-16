@@ -1,6 +1,8 @@
 <template>
     <div class="results">
-        <b-card no-body v-for="result in results">
+        <b-card >
+            <h3 class="mt-2">{{ $t("choose.regional_elections") }}</h3>
+
             <b-tabs card>
 
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
@@ -32,48 +34,166 @@
                 </div>
                 </b-tab>
 
-                <b-tab :title="$t('title.parties')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
-                    <div class="row list-item" v-for="(item, idx) in currentRegElectoralListScores.map(extractRegDistrictList)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
-                    </div>
-                </b-tab>
 
                 <b-tab :title="$t('title.substitutes')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
+                    <p class="list-legend">{{ $t('Les suppléants qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentRegSubstituteScores.map(extractRegSubstitute)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
+                <b-tab :title="$t('title.parties')" class="col-md-6 tab-center" active>
+                    <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
+                    <div class="row list-item" v-for="(item, idx) in currentRegElectoralListScores.map(extractRegDistrictList)"
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </b-tab>
 
+            </b-tabs>
+        </b-card>
+
+        <b-card >
+            <h3 class="mt-2">{{ $t("choose.federal_elections") }}</h3>
+
+                <b-tabs card>
 
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedCandidateScores.map(extractFedCandidate)"
                          :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
                 <b-tab :title="$t('title.substitutes')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
+                    <p class="list-legend">{{ $t('Les suppléants qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedSubstituteScores.map(extractFedSubstitute)"
                          :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
+                    <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedElectoralListScores.map(extractFedDistrictList)"
                          :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
+                </b-tabs>
+        </b-card>
 
+        <b-card >
+            <h3 class="mt-2">{{ $t("choose.european_elections") }}</h3>
+
+            <b-tabs card>
 
 
 
@@ -81,23 +201,86 @@
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentEurCandidateScores.map(extractEurCandidate)"
                          :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
                 <b-tab :title="$t('title.substitutes')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
+                    <p class="list-legend">{{ $t('Les suppléants qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentEurSubstituteScores.map(extractEurSubstitute)"
                          :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center" active>
-                    <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
+                    <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentEurElectoralListScores.map(extractEurDistrictList)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
-                        <span>{{ item.name }}</span>
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
+                        <div class="col-3">
+                            <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
+                            <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-9">
+                            <div class="title">
+                                <a v-if="item.completeness > 12"
+                                   :href="'//directory.wecitizens.be/'+$i18n.locale()+'/politician/profil/'+item.id"
+                                   target="_blank">{{ item.name }}</a>
+                                <span v-else>{{ item.name }}</span>
+                            </div>
+                            <div class="subtitle"><span v-if="item.position > 0">#{{ item.position }}</span> {{
+                                item.group }}
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" :style="'width:' + item.score + '%;'"
+                                     :aria-valuenow="item.score"
+                                     aria-valuemin="0" aria-valuemax="100">{{ Math.round(item.score) }}%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </b-tab>
 
@@ -109,7 +292,6 @@
 </template>
 
 <script>
-
   import {mapGetters} from 'vuex'
 
   export default {
@@ -136,26 +318,27 @@
           //}
           if (!this.regCandidates) return {};
 
-          let group = '';
+          let group, groupName = '', listPosition='';
           if (this.regDistrictLists) {
             group = this.regDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+              if (group) {
+                  groupName = group.full_name;
+                  listPosition = group.candidates.find(c => c.key == score.user_key).order
+              }
           }
 
           let candidate = this.regCandidates.find(p => p.key == score.user_key);
 
-          console.log('Reg candidate:'); console.log(candidate);
           if (candidate) {
-                console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
+                console.log('Reg candidate:' + candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: group, // this.$t('vote.' + group.name),
-                    position: group.candidates.find(c => c.key == score.user_key).order,
+                    group: groupName, position: listPosition ,
                     score: score.score, img: candidate.img,
-                    has_answered: candidate.has_answered,
-                    completeness: candidate.completeness
+                    has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
           } else {
-                console.log('candidate ' + score.user_key + ' not found' );
+                console.log('Reg candidate ' + score.user_key + ' not found' );
                 return {}
           }
         },
@@ -163,28 +346,33 @@
         extractRegSubstitute(score) {
             console.log('extractRegSubstitute >  user_key: ' +  score.user_key);
             if (!this.regSubstitutes) return {};
+            let group, groupName = '', listPosition='';
+            if (this.regDistrictLists) {
+                group = this.regDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+                if (group) {
+                    groupName = group.full_name;
+                    listPosition = group.candidates.find(c => c.key == score.user_key).order
+                }
+            }
             let candidate = this.regSubstitutes.find(p => p.key == score.user_key);
-
-            console.log('Reg substitute:'); console.log(candidate);
             if (candidate) {
-                console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
+                console.log('Reg substitute:' + candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id,  name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
+                    group: groupName,  position: listPosition,
                     score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
-                console.log('substitute ' + score.user_key + ' not found' );
+                console.log('Reg substitute ' + score.user_key + ' not found' );
                 return {}
             }
         },
 
         extractRegDistrictList(score) {
             console.log('extractRegParty >  user_key: ' +  score.user_key);
-            if (!this.regDistrictLists) return {}
 
+            if (!this.regDistrictLists) return {}
             let candidate = this.regDistrictLists.find(p => p.key == score.user_key);
 
             console.log('Reg party:'); console.log(candidate);
@@ -192,9 +380,7 @@
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: '', position: 0 , score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -206,7 +392,14 @@
         extractFedCandidate(score) {
             console.log('extractFedCandidate >  user_key: ' +  score.user_key);
             if (!this.fedCandidates) return {}
-
+            let group, groupName = '', listPosition='';
+            if (this.fedDistrictLists) {
+                group = this.fedDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+                if (group) {
+                    groupName = group.full_name;
+                    listPosition = group.candidates.find(c => c.key == score.user_key).order
+                }
+            }
             let candidate = this.fedCandidates.find(p => p.key == score.user_key);
 
             console.log('Fed candidate'); console.log(candidate);
@@ -214,9 +407,7 @@
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => :c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: groupName, position: listPosition, score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -229,14 +420,21 @@
         extractFedSubstitute(score) {
             console.log('extractFedSubstitute >  user_key: ' +  score.user_key);
             if (!this.fedSubstitutes) return {}
+            let group, groupName = '', listPosition='';
+            if (this.fedDistrictLists) {
+                group = this.fedDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+                if (group) {
+                    groupName = group.full_name;
+                    listPosition = group.candidates.find(c => c.key == score.user_key).order
+                }
+            }
             let candidate = this.fedSubstitutes.find(p => p.key == score.user_key);
             console.log('Fed substitute:'); console.log(candidate);
             if (candidate) {
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
+                    group: groupName, position: listPosition,
                     score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
@@ -250,7 +448,6 @@
         extractFedDistrictList(score) {
             console.log('extractFedParty >  user_key: ' +  score.user_key);
             if (!this.fedDistrictLists) return {}
-
             let candidate = this.fedDistrictLists.find(p => p.key == score.user_key);
 
             console.log('Fed party'); console.log(candidate);
@@ -258,9 +455,7 @@
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: '', position: 0 , score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -275,15 +470,21 @@
             console.log('extractEurCandidate >  user_key: ' +  score.user_key);
             if (!this.eurCandidates) return {}
             let candidate = this.eurCandidates.find(p => p.key == score.user_key);
+            let group, groupName = '', listPosition='';
+            if (this.eurDistrictLists) {
+                group = this.eurDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+                if (group) {
+                    groupName = group.full_name;
+                    listPosition = group.candidates.find(c => c.key == score.user_key).order
+                }
+            }
 
             console.log('Eur candidate'); console.log(candidate);
             if (candidate) {
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: groupName, position: listPosition, score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -297,15 +498,21 @@
         extractEurSubstitute(score) {
             console.log('extractEurSubstitute >  user_key: ' +  score.user_key);
             if (!this.eurSubstitutes) return {}
+            let group, groupName = '', listPosition='';
+            if (this.regDistrictLists) {
+                group = this.regDistrictLists.filter(e => e.candidates.map(c => c.key).includes(score.user_key))[0];
+                if (group) {
+                    groupName = group.full_name;
+                    listPosition = group.candidates.find(c => c.key == score.user_key).order
+                }
+            }
             let candidate = this.eurSubstitutes.find(p => p.key == score.user_key);
             console.log('Eur substitute:'); console.log(candidate);
             if (candidate) {
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: groupName, position: listPosition, score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -318,7 +525,6 @@
         extractEurDistrictList(score) {
             console.log('extractEurParty >  user_key: ' +  score.user_key);
             if (!this.eurDistrictLists) return {}
-
             let candidate = this.eurDistrictLists.find(p => p.key == score.user_key);
 
             console.log('Eur party:'); console.log(candidate);
@@ -326,9 +532,7 @@
                 console.log(candidate.politician_id +  ' ' + candidate.full_name+ ' : ' + score.score);
                 return {
                     id: candidate.politician_id, name: candidate.full_name,
-                    group: 'group...', // this.$t('vote.' + group.name),
-                    position: 0 ,      // group.candidates.find(c => c.key == score.user_key).order,
-                    score: score.score, img: candidate.img,
+                    group: '', position: 0 , score: score.score, img: candidate.img,
                     has_answered: candidate.has_answered, completeness: candidate.completeness
                 }
             } else {
@@ -386,33 +590,43 @@
 
       if (currVote) {
 
-          console.log('currVote:');console.log(currVote);
+          console.log('currVote:'); console.log(currVote);
 
-          if (currVote.eurDistrict) {
-              let eur_base_segment = '2019_be_eur_' + currVote.eurDistrict.code;
-              //segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
-          } else {
-              console.log('currVote.eurDistrict EMPTY');
+          if (currVote.regDistrict) {
+              let reg_base_segment = '2019_be_reg_' + currVote.regDistrict.code;
+              segment_keys.push( reg_base_segment+ '_candidate');
+              segment_keys.push( reg_base_segment+ '_substitute');
+              segment_keys.push( reg_base_segment+ '_electoral_list');
+              //segment_keys.push( reg_base_segment+ '_candidate', reg_base_segment+ '_substitute');
+              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
+          }else {
+              console.log('currVote.regDistrict EMPTY');
           }
 
           if (currVote.fedDistrict) {
               let fed_base_segment = '2019_be_fed_' + currVote.fedDistrict.code;
-              //segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list' );
+              //segment_keys.push( fed_base_segment+ '_candidate');
+              //segment_keys.push( fed_base_segment+ '_substitute');
+              segment_keys.push( fed_base_segment+ '_candidate', fed_base_segment+ '_substitute', fed_base_segment+ '_electoral_list' );
           } else {
               console.log('currVote.fedDistrict EMPTY');
           }
 
-          if (currVote.regDistrict) {
-              let reg_base_segment = '2019_be_reg_' + currVote.regDistrict.code;
-              //segment_keys.push( reg_base_segment+ '_candidate');
-              segment_keys.push( reg_base_segment+ '_candidate', reg_base_segment+ '_substitute');
-              //segment_keys.push( reg_base_segment+ '_candidate' , reg_base_segment+ '_substitute', reg_base_segment+ '_electoral_list' );
+          if (currVote.eurDistrict) {
+              let eur_base_segment = '2019_be_eur_' + currVote.eurDistrict.code;
+              //segment_keys.push( eur_base_segment+ '_candidate');
+              //segment_keys.push( eur_base_segment+ '_substitute');
+              segment_keys.push( eur_base_segment+ '_candidate', eur_base_segment+ '_substitute' , eur_base_segment+ '_electoral_list' );
           } else {
-              console.log('currVote.regDistrict EMPTY');
+              console.log('currVote.eurDistrict EMPTY');
           }
 
-          console.log('segment_keys:');console.log(segment_keys);
+      } else {
+        console.log('Warning: currVote not set. ');
       }
+      console.log('segment_keys:'); console.log(segment_keys);
+
+
       const survey = this.$store.state.survey.current.survey;
 
       if (survey) {
@@ -478,13 +692,13 @@
         showNewsletter: false,
         results: [// @todo dynamise this
           {
-            "type" : "EUROP"
+            "type" : "reg"
           },
           {
-            "type" : "REGION"
+            "type" : "fed"
           },
           {
-            "type" : "COM"
+            "type" : "eur"
           },
         ]
       };

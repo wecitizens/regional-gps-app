@@ -14,7 +14,11 @@ export default {
     },
     "choose" : {
         "title": "Choisissez votre circonscription",
-        "baseline" : ""
+        "baseline" : "",
+        "european_elections" : "european elections",
+        "federal_elections" : "federal elections",
+        "regional_elections" : "regional elections",
+
     },
     "app": {
         "title": "Electoral GPS"
@@ -186,7 +190,8 @@ export default {
             "your_postcode": "Your postal code"
         }
     },
-    "Les listes qui partagent le plus mes convictions sont": "Matching with electoral lists (see also the other tab)",
-    "Les candidats qui partagent le plus mes convictions sont": "Matching with candidates (see also the other tab)",
+    "Les listes qui partagent le plus mes convictions sont": "Matching with electoral lists ",
+    "Les candidats qui partagent le plus mes convictions sont": "Matching with candidates ",
+    "Les suppléants qui partagent le plus mes convictions sont": "Matching with substitute candidates ",
     "print" : "Print"
 }

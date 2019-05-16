@@ -14,7 +14,11 @@ export default {
     },
     "choose" : {
         "title": "Choisissez votre circonscription",
-        "baseline" : ""
+        "baseline" : "",
+        "european_elections" : "Europese verkiezingen",
+        "federal_elections" : "Federale verkiezingen",
+        "regional_elections" : "Regionale verkiezingen",
+
     },
     "app": {
         "title": "KiesWijzer"
@@ -187,7 +191,8 @@ export default {
             "your_postcode": "xxxx"
         }
     },
-    "Les listes qui partagent le plus mes convictions sont": "Hoe sterk delen de kieslijsten mijn standpunten (de kandidaten verschijnen op het ander tabblad)",
-    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten (de kieslijsten verschijnen op het tweede tabblad)",
+    "Les listes qui partagent le plus mes convictions sont": "Hoe sterk delen de kieslijsten mijn standpunten ",
+    "Les candidats qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten ",
+    "Les suppléants qui partagent le plus mes convictions sont": "Hoe sterk delen de kandidaten mijn standpunten ",
     "print" : "Afdrukken"
 }

@@ -192,6 +192,9 @@ export default {
             fedDistrictLists:null,
             regDistrictLists:null,
 
+            eurSubstitutes: [],
+            fedSubstitutes: [],
+            regSubstitutes: [],
             eurCandidates: [],
             fedCandidates: [],
             regCandidates: []
@@ -237,6 +240,18 @@ export default {
             console.log('vote.js:mut.setCurrentRegDistrictLists', payload);
             state.current.regDistrictLists = payload
         },
+        setCurrentEurSubstitutes (state, payload) {
+            console.log('vote.js:mut.setCurrentEurSubstitutes', payload);
+            state.current.eurSubstitutes = payload
+        },
+        setCurrentFedSubstitutes(state, payload) {
+            console.log('vote.js:mut.setCurrentFedSubstitutes', payload);
+            state.current.fedSubstitutes = payload
+        },
+        setCurrentRegSubstitutes(state, payload) {
+            console.log('vote.js:mut.setCurrentRegSubstitutes', payload);
+            state.current.regSubstitutes = payload
+        },
 
         setCurrentEurCandidates (state, payload) {
             console.log('vote.js:mut.setCurrentEurCandidates', payload);
@@ -260,9 +275,9 @@ export default {
         },
         setCurrentElectoralListScores(state, payload) {
             console.log('setCurrentElectoralListScores:');console.log(payload);
-            if (payload.electionTp=='eur') state.current.eurCandidateScores= payload.scores;
-            if (payload.electionTp=='reg') state.current.regCandidateScores= payload.scores;
-            if (payload.electionTp=='fed') state.current.fedCandidateScores= payload.scores;
+            if (payload.electionTp=='eur') state.current.eurElectoralListScores= payload.scores;
+            if (payload.electionTp=='reg') state.current.regElectoralListScores= payload.scores;
+            if (payload.electionTp=='fed') state.current.fedElectoralListScores= payload.scores;
         },
         setCurrentSubstituteScores(state, payload) {
             console.log('setCurrentSubstituteScores:');console.log(payload);
@@ -286,9 +301,9 @@ export default {
         },
         setCurrentElectoralListSegmentAnswers(state, payload) {
             //state.current.electoralListSegmentAnswers[payload.electionTp] = payload.answers;
-            if (payload.electionTp=='eur') state.current.eurCandidateSegmentAnswers= payload.answers;
-            if (payload.electionTp=='reg') state.current.regCandidateSegmentAnswers= payload.answers;
-            if (payload.electionTp=='fed') state.current.fedCandidateSegmentAnswers= payload.answers;
+            if (payload.electionTp=='eur') state.current.eurElectoralListSegmentAnswers= payload.answers;
+            if (payload.electionTp=='reg') state.current.regElectoralListSegmentAnswers= payload.answers;
+            if (payload.electionTp=='fed') state.current.fedElectoralListSegmentAnswers= payload.answers;
         }
     },
     actions: {
@@ -306,6 +321,7 @@ export default {
                 })
             commit('setCurrentFedDistrictLists', elDistrictData.electoral_lists)
             commit('setCurrentFedCandidates', elDistrictData.candidates);
+            commit('setCurrentFedSubstitutes', elDistrictData.substitutes);
 
         },
         async getRegDistrictLists({ commit }, data) {
@@ -321,6 +337,7 @@ export default {
                 })
             commit('setCurrentRegDistrictLists', elDistrictData.electoral_lists)
             commit('setCurrentRegCandidates', elDistrictData.candidates);
+            commit('setCurrentRegSubstitutes', elDistrictData.substitutes);
         },
         async getEurDistrictLists({ commit }, data) {
             console.log('match.js:act.getEurDistrictLists:');
@@ -335,6 +352,7 @@ export default {
                 })
             commit('setCurrentEurDistrictLists', elDistrictData.electoral_lists)
             commit('setCurrentEurCandidates', elDistrictData.candidates);
+            commit('setCurrentEurSubstitutes', elDistrictData.substitutes);
         },
 
 
