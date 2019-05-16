@@ -1,10 +1,8 @@
 <template>
     <div class="results">
-        <b-card >
-            <h3 class="mt-2">{{ $t("choose.regional_elections") }}</h3>
-
+        <b-card no-body >
+            <h2 class="mt-2">{{ $t("choose.regional_elections") }}</h2>
             <b-tabs card>
-
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                 <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
                 <div class="row list-item" v-for="(item, idx) in currentRegCandidateScores.map(extractRegCandidate)"

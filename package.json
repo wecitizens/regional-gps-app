@@ -7,6 +7,7 @@
     "watch": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "deploy": "vue-cli-service build && bash deploy.sh",
+    "deploy_api": "bash deploy_api.sh",
     "deploy_prod": "vue-cli-service build && bash deploy_prod.sh",
     "sync-translations": "node --harmony ./bin/sync-translations.js",
     "get-answers": "node --harmony ./utils/segment_generation/generate-segments-candidate.js",
