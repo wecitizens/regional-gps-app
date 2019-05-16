@@ -19,7 +19,7 @@
         <h3 class="title p-3">{{ $t('gps.survey.' + question.text) }}</h3>
 
 
-        <el-row class="actions mt-3">
+        <el-row v-show="$t('gps.survey.' + question.notice)"    class="actions mt-3">
             <el-tooltip class="item" effect="dark" :content="$t('moreinfo_tooltip')" placement="bottom">
                 <el-button title="test" :disabled="!question.notice" @click="showMoreInfo = !showMoreInfo"
                            :icon="showMoreInfo ? 'el-icon-minus' : 'el-icon-info'" circle></el-button>
