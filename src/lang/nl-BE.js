@@ -42,7 +42,8 @@ export default {
     "PayPal-button": "Ik doe een gift via PayPal",
     "title": {
         "parties": "Kieslijsten",
-        "candidates": "Kandidaten"
+        "candidates": "Kandidaten",
+        "substitutes":"Plaatsvervangers"
     },
     "links": {
         "gps_link": "http://www.wecitizens.be/nl/onze-tools/kieswijzer/",

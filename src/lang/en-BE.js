@@ -42,7 +42,8 @@ export default {
     "PayPal-button": "Donate (using PayPal)",
     "title": {
         "parties": "Candidate list",
-        "candidates": "Candidates"
+        "candidates": "Candidates",
+        "substitutes":"Substitutes"
     },
     "links": {
         "gps_link": "https://www.wecitizens.be/fr/q05-gps_electoral/",
