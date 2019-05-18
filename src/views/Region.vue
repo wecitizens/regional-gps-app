@@ -1,38 +1,34 @@
 <template>
     <div>
         <steps :active="1"></steps>
-        <div class="text-center container mt-5">
-            <h5>{{ $t("region.what_is_your_region") }}</h5>
-            <div id="flags-div">
-                <button style="margin:15px;"  v-on:click="setCurrentRegion('VL')" ><img style="width:80px; height:60px;padding:8px;" src="../assets/flanders_flag.svg.png" ></button>
-                <button style="margin:15px;"  v-on:click="setCurrentRegion('WA')" ><img style="width:80px; height:60px;padding:8px;" src="../assets/wallonia_flag.svg.png" ></button>
-                <button style="margin:15px;"  v-on:click="setCurrentRegion('BR')" ><img style="width:80px; height:60px;padding:8px;" src="../assets/brussels_flag.svg.png" ></button>
-            </div>
-        </div>
+
             <div class="text-center container mt-5">
 
+                <h4>{{ $t("choose.title") }}</h4>
+                <p>{{ $t("choose.baseline") }}</p><br/>
 
-             <el-row v-if="vote.current.region" >
-                 <h5>{{ $t("district.what_is_your_eur_district") }}:</h5>
+             <el-row  >
                  <el-autocomplete style="width:350px;" class="inline-input" v-model="eurDistrict"
+                                  :placeholder="$t('choose.european_elections')"
                                   :fetch-suggestions="filterEurDistricts"
                                   @select="setCurrentEurDistrict({ eurDistrict })"></el-autocomplete>
              </el-row >
                 <br>
-                <el-row  v-if="vote.current.region" >
-                    <h5>{{ $t("district.what_is_your_fed_district") }}:</h5>
+                <el-row  >
                     <el-autocomplete style="width:350px;" class="inline-input" v-model="fedDistrict"
+                                     :placeholder="$t('choose.federal_elections')"
                                      :fetch-suggestions="filterFedDistricts"
                                      @select="setCurrentFedDistrict({ fedDistrict })"></el-autocomplete>
                 </el-row>
                 <br>
-                <el-row  v-if="vote.current.region" >
-                    <h5>{{ $t("district.what_is_your_reg_district") }}:</h5>
+                <el-row >
                     <el-autocomplete style="width:350px;" class="inline-input" v-model="regDistrict"
+                                     :placeholder="$t('choose.regional_elections')"
                                      :fetch-suggestions="filterRegDistricts"
                                      @select="setCurrentRegDistrict({ regDistrict })"></el-autocomplete>
                 </el-row>
                 <br/>
+            </div>
 
                 <el-row v-if="vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict">
                     <router-link :to="'/survey/2019-05-26?'+region"
@@ -43,7 +39,6 @@
                     </div>
                 </el-row>
             <br/>
-        </div>
     </div>
 </template>
 
@@ -63,7 +58,6 @@
         regDistrict: null,
         fedDistrict: null,
         eurDistrict: null,
-        zip_code: null,
         district_key: null,
         district_code: null,
         eur_district_key: null,
@@ -88,6 +82,7 @@
 
     },
     computed: {
+
       displayNextStepButton() {
         return true
       },
@@ -132,6 +127,7 @@
             this.eur_district_code = eurDistrict.code;
             this.$store.commit("setCurrentEurDistrict", eurDistrict);
 
+
             this.$store.dispatch("getEurDistrictLists", eurDistrict).then(() => {
                 loading.close();
             });
@@ -147,6 +143,12 @@
             this.reg_district_key = regDistrict.key;
             this.reg_district_code = regDistrict.code;
             this.$store.commit("setCurrentRegDistrict", regDistrict);
+
+            let region = regDistrict.type.substr(3,2);
+
+            console.log('region from regDistrict: ' + region);
+            this.$store.commit("setCurrentRegion", region);
+
 
             this.$store.dispatch("getRegDistrictLists", regDistrict).then(() => {
                 loading.close();
