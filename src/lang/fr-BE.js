@@ -72,7 +72,7 @@ export default {
             "stats": "Stats",
             "choose": "Choix",
             "donate": "Soutenir",
-            "region": "Circonscription",
+            "region": "Listes",
             "results": "Résultats",
             "welcome": "Accueil",
             "share_app": "Partager le {app_title}",

@@ -1,9 +1,9 @@
 <template>
     <div class="results">
+        <h3 class="mb-3 d-print-none">{{ $t("button.see_results") }} :</h3>
         <el-collapse v-model="activeTabs">
             <el-collapse-item :title="$t('choose.regional_elections')" name="region">
                 <b-card no-body>
-                    <h2 class="mt-2 d-print-none">{{ $t("choose.regional_elections") }}</h2>
                     <b-tabs card>
                         <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                             <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont')
@@ -110,8 +110,6 @@
             </el-collapse-item>
             <el-collapse-item :title='$t("choose.federal_elections")' name="federal">
                 <b-card>
-                    <h3 class="mt-2 d-print-none">{{ $t("choose.federal_elections") }}</h3>
-
                     <b-tabs card>
 
                         <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
@@ -217,7 +215,6 @@
             </el-collapse-item>
             <el-collapse-item :title='$t("choose.european_elections")' name="european">
                 <b-card>
-                    <h3 class="mt-2 d-print-none">{{ $t("choose.european_elections") }}</h3>
                     <b-tabs card>
                         <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                             <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont')
