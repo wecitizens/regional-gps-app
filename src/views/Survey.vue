@@ -6,19 +6,23 @@
                 <div v-for="(question, idx) in questions.list.data.questions" :key="idx"
                      v-if="question.key === currentQuestionKey">
                     <div class="question mt-5">
-                        <Question v-bind:class="{ show_tips : helpMode }" :help_mode="helpMode" :question="question" :answerFormat="getAnswerFormat(question.answer_format)"/>
+                        <Question v-bind:class="{ show_tips : helpMode }" :help_mode="helpMode" :question="question"
+                                  :answerFormat="getAnswerFormat(question.answer_format)"/>
                     </div>
                 </div>
             </transition-group>
         </div>
         <el-footer class="footer-fixed" v-if="questions">
+            <div v-show="questions.current.index > minQuestions" class="alert alert-warning">
+                {{ $t("precision_notice") }}
+            </div>
             <div class="row">
                 <div class="col-2">
                     <a v-show="questions.current.index > 1" class="btn btn-block"
                        @click="goPrevious"><i class="fas fa-chevron-left"></i></a>
                 </div>
                 <div class="col">
-                    <a v-show="questions.current.index > 20" class="btn btn-block"
+                    <a v-show="questions.current.index > minQuestions" class="btn btn-block"
                        @click="goResults">{{ $t("button.see_results") }} </a>
                 </div>
                 <div class="col-2">
@@ -49,7 +53,8 @@
     data() {
       return {
         loading: true,
-        helpMode: false
+        helpMode: false,
+        minQuestions: 20
       }
     },
     computed: {
@@ -76,24 +81,29 @@
       }
     },
     created() {
-        console.log('Survey.vue.created:');
+      console.log('Survey.vue.created:');
 
-        // JMV: I've commented this as I don't see its purpose. Seems redundant.
-        //this.$store.dispatch('getDistricts').then(() => {
-        // this.district_key = this.$route.params.key;
-        //const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
-        //this.$store.commit("setCurrentDistrict", district);
-        //this.$store.dispatch("setCurrentElection", district);
+      // Skip default 20 questions for local env
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+        this.minQuestions = 5;
+      }
 
-        // currentPoll will set segment_keys from related poll json file. segment_keys is used in matching process.
-        this.$store.dispatch('setCurrentPoll', null)
-          .then(() => this.$store.dispatch('setCurrentSurvey'))
-          .then(() => this.getQuestions())
-          .then(() => {
-              this.loading = false;
-              let $ = window.jQuery;
-              $("html, body").animate({scrollTop: $(document).height()}, 1000);
-          })
+      // JMV: I've commented this as I don't see its purpose. Seems redundant.
+      //this.$store.dispatch('getDistricts').then(() => {
+      // this.district_key = this.$route.params.key;
+      //const district = this.$store.state.vote.districts.find(r => r.key === this.district_key);
+      //this.$store.commit("setCurrentDistrict", district);
+      //this.$store.dispatch("setCurrentElection", district);
+
+      // currentPoll will set segment_keys from related poll json file. segment_keys is used in matching process.
+      this.$store.dispatch('setCurrentPoll', null)
+        .then(() => this.$store.dispatch('setCurrentSurvey'))
+        .then(() => this.getQuestions())
+        .then(() => {
+          this.loading = false;
+          let $ = window.jQuery;
+          $("html, body").animate({scrollTop: $(document).height()}, 1000);
+        })
       //});
 
     }
@@ -141,10 +151,10 @@
         top: 0;
         bottom: 0;
         left: 0;
-        right : 0;
+        right: 0;
         background: #444;
         height: 100vh;
-        width: 100wh;
+        width: 100 wh;
         opacity: 0.4;
     }
 

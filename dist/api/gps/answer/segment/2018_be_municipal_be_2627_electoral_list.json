@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "user_key": "be_2627_groen",
+      "question_key": "question_23",
+      "value": "agree"
+    },
+    {
+      "user_key": "be_2627_groen",
+      "question_key": "question_4",
+      "value": "no_opinion"
+    },
+    {
+      "user_key": "be_2627_groen",
+      "question_key": "question_20",
+      "value": "disagree"
+    },
+    {
+      "user_key": "be_2627_groen",
+      "question_key": "question_21",
+      "value": "disagree"
+    },
+    {
+      "user_key": "be_2627_groen",
+      "question_key": "question_22",
+      "value": "disagree"
+    }
+  ]
+}
