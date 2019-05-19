@@ -142,6 +142,7 @@
     },
     data() {
       return {
+        activeNames: [],
         showNewsletter: false,
         results: [// @todo dynamise this
           {
