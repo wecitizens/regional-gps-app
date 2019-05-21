@@ -102,7 +102,7 @@
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedCandidateScores.map(extractFedCandidate)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
                             <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
@@ -131,7 +131,7 @@
                 <b-tab :title="$t('title.substitutes')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les suppléants qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedSubstituteScores.map(extractFedSubstitute)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
                             <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
@@ -160,7 +160,7 @@
                 <b-tab :title="$t('title.parties')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les listes qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentFedElectoralListScores.map(extractFedDistrictList)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
                             <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
@@ -198,7 +198,7 @@
                 <b-tab :title="$t('title.candidates')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les candidats qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentEurCandidateScores.map(extractEurCandidate)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
                             <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
@@ -227,7 +227,7 @@
                 <b-tab :title="$t('title.substitutes')" class="col-md-6 tab-center" active>
                     <p class="list-legend">{{ $t('Les suppléants qui partagent le plus mes convictions sont') }}:</p>
                     <div class="row list-item" v-for="(item, idx) in currentEurSubstituteScores.map(extractEurSubstitute)"
-                         :key="idx" v-bind:class="{ diisabled: !item.has_answered }" >
+                         :key="idx" v-bind:class="{ disabled: !item.has_answered }" >
                         <div class="col-3">
                             <img :src="item.img" v-if="item.img" class="img-thumbnail"/>
                             <img src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png" v-else
@@ -387,6 +387,7 @@
             }
         },
 
+        // Yet another ugly copy-paste-adapt . Promis, la semaine prochaine je commence à apprendre Vuex.-
         extractFedCandidate(score) {
             console.log('extractFedCandidate >  user_key: ' +  score.user_key);
             if (!this.fedCandidates) return {}
@@ -524,6 +525,7 @@
             console.log('extractEurParty >  user_key: ' +  score.user_key);
             if (!this.eurDistrictLists) return {}
             let candidate = this.eurDistrictLists.find(p => p.key == score.user_key);
+            let partyImg = '/assets/media/vignette_user/d83875baee97f1ec29f5a99873bb0fc2.png';
 
             console.log('Eur party:'); console.log(candidate);
             if (candidate) {
@@ -643,7 +645,8 @@
           }).filter(q => q.value != null);
 
           if (typeof segment_keys !== 'undefined') {
-              console.log('segment_keys');
+              console.log('segment_keys:'); console.log(segment_keys);
+
               segment_keys.forEach(s =>
                   this.$store.dispatch('performMatch', {
                       segment_key: s,
@@ -683,7 +686,7 @@
           'currentFedCandidateScores', 'currentFedSubstituteScores', 'currentFedElectoralListScores',
           'eurDistrictLists', 'eurCandidates','eurSubstitutes',
           'fedDistrictLists', 'fedCandidates' ,'fedSubstitutes' ,
-          'regDistrictLists', 'regCandidates', 'regSubstitutes'   ])
+          'regDistrictLists', 'regCandidates', 'regSubstitutes', 'allPartyImages' ])
     },
     data() {
       return {
