@@ -47,6 +47,7 @@ export default {
         endpoint += "?reg=BER" + state.current.region;
       }
 
+      console.log('setCurrentSurvey.endpoint:' + endpoint);
       const survey = await API.get(endpoint).then(request => {
         const survey = request.data
         Vue.i18n.add('en', { gps: { survey: survey.i18n.en } })

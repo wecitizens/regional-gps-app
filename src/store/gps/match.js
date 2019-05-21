@@ -60,6 +60,7 @@ function getSamples(matchRequest, data) {
 
             const q = matchRequest.answers.find(aa => aa.question_key == t.question_key);
 
+
             if (q == null) // otherwise when question answer not found in segment, there might be a question_id mismatch
                 return acc;
 
@@ -84,23 +85,29 @@ function individualDistance(answer_formats, subject, weights, set) {
     let filteredSet = {};
     let filteredSubject = {};
     let filteredWeights = {};
-    let i = 0;
+    let filteredNbr = 0;
 
     Object.keys(subject).forEach(f => {
         if (set.hasOwnProperty(f)) {
-            filteredSet[f] = set[f];
-            filteredSubject[f] = subject[f];
-            filteredWeights[f] = weights[f];
-            i++;
+
+            if (subject[f] != 50) {   // we do not take into account 'no_opinion' case
+                console.dir('Included:', subject[f]);
+                filteredSet[f] = set[f];
+                filteredSubject[f] = subject[f];
+                filteredWeights[f] = weights[f];
+                filteredNbr++;
+            } else {
+                console.dir('Excluded', subject[f]);
+            }
         }
     });
 
-    const subjectLength = Object.keys(subject).length;
+    //const subjectLength = Object.keys(subject).length;
 
-    const distance = LAUtil.distance(filteredSet, filteredSubject, {weights: filteredWeights});
+    const distance = laudistance(filteredSet, filteredSubject, {weights: filteredWeights});
 
     // works for one format only
-    const itemWeightMax = answer_formats[0].items.map(i => i.weight).reduce((p, c) => {
+    const itemWeightMax = answer_formats[0].items.map(idx => idx.weight).reduce((p, c) => {
         return c > p ? c : p;
     }, 0);
 
@@ -116,34 +123,74 @@ function individualDistance(answer_formats, subject, weights, set) {
     //console.log("Max weight : ");console.log(itemWeightMax);
     //console.log("Max distance : ");console.log(distanceMax);
 
-    return 100 * (1 - distance / distanceMax) * (0.75 + 0.25 * i / subjectLength);
+    const distance1 = 100 * (1 - distance / distanceMax);
+    //console.log('  distance1:', distance1);
+    //return 100 * (1 - distance / distanceMax) * (0.75 + 0.25 * filteredNbr / subjectLength);
+    //const corrDistance = 100 * (1 - distance / distanceMax) * (2 / 3 + 1 / 3 * filteredNbr / subjectLength);
+    //console.log('  correctedDistance:', corrDistance);
+    return distance1;
+
 }
+
+
+function laudistance(p1, p2, opts) {
+
+
+    var attr, dist, val, x, y;
+    dist = 0;
+    for (attr in p1) {
+        val = p1[attr];
+        x = val;
+        y = p2[attr];
+        if ((opts != null ? opts.stdv : void 0) && Object.getOwnPropertyNames(opts.stdv).length > 0) {
+            x /= opts.stdv[attr];
+            y /= opts.stdv[attr];
+        }
+        if ((opts != null ? opts.weights : void 0) && Object.getOwnPropertyNames(opts.weights).length > 0) {
+            x *= opts.weights[attr];
+            y *= opts.weights[attr];
+        }
+        console.log('localdistance');
+        dist += Math.pow(x - y, 2);
+    }
+    return Math.sqrt(dist);
+}
+
 
 function performMatch(matchRequest, segmentAnswers) {
 
-    console.log('performMatch:' ,matchRequest);
+    console.log('performMatch:', matchRequest);
+
+
+    //if (matchRequest.electionKey) {
+    //    arr.includes(obj);
+    //}
+    //console.log(electionsQuestions);
 
     const subject = getSubject(matchRequest);
     const weights = getWeights(matchRequest);
     const samples = getSamples(matchRequest, segmentAnswers);
 
+
+
+    console.log(samples);
     //console.log("My choice : ");console.log(subject);
     //console.log("My tolerance : ");console.log(weights);
 
     return Object.keys(samples).map(key => {
 
+        console.log('Individual - user_key', key);
         const sample = samples[key];
+        console.log('Individual - sample', sample);
 
         // for all subject keys, get the sample one. if it does not exist, remove the one 
 
         //console.log('Individual - subject', subject);
         //console.log('Individual - weight', weights);
-        //console.log('Individual - sample', sample);
-        
+
         const match = individualDistance(matchRequest.answer_formats, subject, weights, sample);
 
         //console.log('Individual - match', match);
-        //console.log('Individual - user_key', key);
 
         return {
             user_key: key,
@@ -152,6 +199,7 @@ function performMatch(matchRequest, segmentAnswers) {
 
     });
 }
+
 
 export default {
     state: {
@@ -188,6 +236,8 @@ export default {
             fedElectoralListScores: [],
             regElectoralListScores: [],
 
+            allPartyImages: [],
+            electionsQuestions:null,
             eurDistrictLists:null,
             fedDistrictLists:null,
             regDistrictLists:null,
@@ -226,9 +276,23 @@ export default {
 
         eurDistrictLists: state => state.current.eurDistrictLists,
         fedDistrictLists: state => state.current.fedDistrictLists,
-        regDistrictLists: state => state.current.regDistrictLists
+        regDistrictLists: state => state.current.regDistrictLists,
+
+        allPartyImages: state => state.current.allPartyImages,
+        electionsQuestions: state => state.current.electionsQuestions
+
     },
     mutations: {
+
+        setCurrentSurvey (state, payload) {
+            console.log('match.js:setCurrentSurvey electionsQuestions  ', payload);
+            state.current.electionsQuestions = payload.electionsquestions;
+        },
+
+
+        setAllPartyImages (state, payload) {
+            state.current.allPartyImages = payload
+        },
 
         setCurrentEurDistrictLists (state, payload) {
             state.current.eurDistrictLists = payload
@@ -253,15 +317,15 @@ export default {
             state.current.regSubstitutes = payload
         },
 
-        setCurrentEurCandidates (state, payload) {
+        setCurrentEurCandidates(state, payload) {
             console.log('vote.js:mut.setCurrentEurCandidates', payload);
             state.current.eurCandidates = payload
         },
-        setCurrentFedCandidates (state, payload) {
+        setCurrentFedCandidates(state, payload) {
             console.log('vote.js:mut.setCurrentFedCandidates', payload);
             state.current.fedCandidates = payload
         },
-        setCurrentRegCandidates (state, payload) {
+        setCurrentRegCandidates(state, payload) {
             console.log('vote.js:mut.setCurrentRegCandidates', payload);
             state.current.regCandidates = payload
         },
@@ -340,19 +404,33 @@ export default {
             commit('setCurrentRegSubstitutes', elDistrictData.substitutes);
         },
         async getEurDistrictLists({ commit }, data) {
-            console.log('match.js:act.getEurDistrictLists:');
+            //console.log('match.js:act.getEurDistrictLists:');
 
             let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
-            console.log(endpoint);
+            //console.log(endpoint);
 
             const elDistrictData = await API.get(endpoint, data)
                 .then((request) => {
-                    console.log(request.data);
+                    //console.log(request.data);
                     return request.data
                 })
             commit('setCurrentEurDistrictLists', elDistrictData.electoral_lists)
             commit('setCurrentEurCandidates', elDistrictData.candidates);
             commit('setCurrentEurSubstitutes', elDistrictData.substitutes);
+        },
+
+        async getAllPartyImages({ commit }, data) {
+            //console.log('match.js:act.getAllPartyImages:');
+
+            let endpoint = 'gps/partyimages.json';
+            //console.log(endpoint);
+
+            const partyimagesData = await API.get(endpoint, data)
+                .then((request) => {
+                    //console.log(request.data);
+                    return request.data
+                })
+            commit('setAllPartyImages', partyimagesData)
         },
 
 
@@ -366,16 +444,19 @@ export default {
             });
 
             let electionTp='';
-            if (matchRequest.segment_key.includes('reg')) {
-                electionTp = 'reg';
-            }
             if (matchRequest.segment_key.includes('fed')) {
                 electionTp = 'fed';
+                matchRequest.electionKey = 'election_22';
             }
             if (matchRequest.segment_key.includes('eur')) {
                 electionTp = 'eur';
+                matchRequest.electionTp = 'eur'
+                matchRequest.electionKey = 'election_21';
             }
-
+            if (matchRequest.segment_key.includes('reg')) {
+                electionTp = 'reg';
+                matchRequest.electionKey = 'election_23';
+            }
 
 
             if (matchRequest.segment_key.includes("electoral_list")) {
