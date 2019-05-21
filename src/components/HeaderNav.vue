@@ -1,5 +1,5 @@
 <template>
-    <nav class="header-nav clearfix">
+    <nav class="header-nav clearfix d-print-none">
         <div class="row">
             <div class="col-4 text-right">
                 <div class="btn-group float-left">
@@ -28,9 +28,8 @@
                         <a class="dropdown-item" target="_blank"
                            :href="$t('links.advice_to_elector_link')">{{$t('menu.item.advice_to_elector',
                             {association_name:$t('association.name')})}}</a>
-                        <a class="dropdown-item" @click="() => showDonate = true">{{$t('menu.item.donate',
+                        <a class="dropdown-item" @click="donate">{{$t('menu.item.donate',
                             {app_title:$t('app.title')})}}</a>
-
                         <a class="dropdown-item" target="_blank"
                            :href="$t('newsletter.link')">{{$t('newsletter.title')}}</a>
                         <div class="dropdown-divider"></div>
@@ -58,15 +57,9 @@
             </div>
         </div>
         <el-dialog
-                :visible.sync="showShare"
-                width="90%">
-            <h1>{{ $t("share.title") }}</h1>
-            <br>
-            <div class="addthis_toolbox addthis_inline_share_toolbox"></div>
-        </el-dialog>
-        <el-dialog
                 :visible.sync="showDonate"
                 width="90%"
+                :before-close="donate"
         >
             <h3>{{ $t("donate.title") }}</h3>
             <p>{{ $t("donate.content") }}</p>
@@ -86,6 +79,7 @@
 
 <script>
   import Vue from 'vue';
+  import {mapGetters} from 'vuex';
 
   export default {
     name: 'header-nav',
@@ -97,13 +91,21 @@
       handleShare() {
         //this.showShare = true;
         window.$('#share-modal').modal('show');
-      }
+      },
+      donate() {
+        this.$store.commit('switchDonate');
+      },
+      share() {
+        this.$store.commit('showShare');
+      },
     },
     data: () => {
-      return {
-        'showShare': false,
-        'showDonate': false
-      }
+      return {}
+    },
+    computed: {
+      ...mapGetters([
+        "showDonate"
+      ])
     },
     created() {
       let $ = window.jQuery;
@@ -128,17 +130,20 @@
 
     .header-nav {
         padding: 10px 16px;
+
         .nav-lang {
             float: right;
+
             a {
                 color: #000;
+
                 &:hover {
                     color: #444444;
                 }
             }
         }
 
-        .header-button{
+        .header-button {
             background: none;
             padding: 0.5em;
             margin: 0;

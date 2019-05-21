@@ -1,7 +1,7 @@
 <template>
     <div>
         <steps :active="3"></steps>
-        <h3 class="text-center m-3">{{$t('stats.anonymous_question_to_improve_service')}}</h3>
+        <h4 class="text-center m-3">{{$t('stats.anonymous_question_to_improve_service')}}</h4>
         <el-form ref="form" label-position="top" :model="form" label-width="120px">
 
             <el-form-item :label="q[1].title">

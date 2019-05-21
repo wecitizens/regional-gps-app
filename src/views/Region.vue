@@ -2,43 +2,43 @@
     <div>
         <steps :active="1"></steps>
 
-            <div class="text-center container mt-5">
+        <div class="text-center container mt-5">
 
-                <h4>{{ $t("choose.title") }}</h4>
-                <p>{{ $t("choose.baseline") }}</p><br/>
+            <h4>{{ $t("choose.title") }}</h4>
+            <p>{{ $t("choose.baseline") }}</p><br/>
 
-             <el-row  >
-                 <el-autocomplete style="width:350px;" class="inline-input" v-model="eurDistrict"
-                                  :placeholder="$t('choose.european_elections')"
-                                  :fetch-suggestions="filterEurDistricts"
-                                  @select="setCurrentEurDistrict({ eurDistrict })"></el-autocomplete>
-             </el-row >
-                <br>
-                <el-row  >
-                    <el-autocomplete style="width:350px;" class="inline-input" v-model="fedDistrict"
-                                     :placeholder="$t('choose.federal_elections')"
-                                     :fetch-suggestions="filterFedDistricts"
-                                     @select="setCurrentFedDistrict({ fedDistrict })"></el-autocomplete>
-                </el-row>
-                <br>
-                <el-row >
-                    <el-autocomplete style="width:350px;" class="inline-input" v-model="regDistrict"
-                                     :placeholder="$t('choose.regional_elections')"
-                                     :fetch-suggestions="filterRegDistricts"
-                                     @select="setCurrentRegDistrict({ regDistrict })"></el-autocomplete>
-                </el-row>
-                <br/>
-            </div>
-
-                <el-row v-if="vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict">
-                    <router-link :to="'/survey/2019-05-26?'+region"
-                                 tag="el-button">{{ $t("button.lets_go") }}
-                    </router-link>
-                    <div class="mt-2">
-                        {{ $t('accept_condition') }}
-                    </div>
-                </el-row>
+            <el-row>
+                <el-autocomplete :clearable="true" style="width:350px;" class="inline-input" v-model="eurDistrict"
+                                 :placeholder="$t('choose.european_elections')"
+                                 :fetch-suggestions="filterEurDistricts"
+                                 @select="setCurrentEurDistrict({ eurDistrict })"></el-autocomplete>
+            </el-row>
+            <br>
+            <el-row>
+                <el-autocomplete :clearable="true"  style="width:350px;" class="inline-input" v-model="fedDistrict"
+                                 :placeholder="$t('choose.federal_elections')"
+                                 :fetch-suggestions="filterFedDistricts"
+                                 @select="setCurrentFedDistrict({ fedDistrict })"></el-autocomplete>
+            </el-row>
+            <br>
+            <el-row>
+                <el-autocomplete :clearable="true" style="width:350px;" class="inline-input" v-model="regDistrict"
+                                 :placeholder="$t('choose.regional_elections')"
+                                 :fetch-suggestions="filterRegDistricts"
+                                 @select="setCurrentRegDistrict({ regDistrict })"></el-autocomplete>
+            </el-row>
             <br/>
+        </div>
+
+        <el-row v-if="vote.current.fedDistrict && vote.current.regDistrict&& vote.current.eurDistrict">
+            <router-link :to="'/survey/2019-05-26?'+region"
+                         tag="el-button">{{ $t("button.lets_go") }}
+            </router-link>
+            <div class="m-5">
+                <a :href="$t('accept_condition_link')" target="_blank">{{ $t('accept_condition') }}</a>
+            </div>
+        </el-row>
+        <br/>
     </div>
 </template>
 
@@ -69,9 +69,9 @@
       }
     },
 
-     getters: {
-         region: state => state.current.region,
-     },
+    getters: {
+      region: state => state.current.region,
+    },
 
     created() {
       //this.$store.dispatch('getElectoralDistricts');
@@ -104,106 +104,106 @@
     },
     methods: {
 
-        setCurrentRegion(data) {
-            console.log('Region.vue:meth.setCurrentRegion:', data);
-            this.$store.commit("setCurrentRegion", data);
+      setCurrentRegion(data) {
+        console.log('Region.vue:meth.setCurrentRegion:', data);
+        this.$store.commit("setCurrentRegion", data);
 
-            this.region = data;
-            this.filterRegDistricts('BER'+data);
-            this.$store.dispatch("setCurrentElection", null).then(() => {
-                //loading.close();
-            });
-        },
+        this.region = data;
+        this.filterRegDistricts('BER' + data);
+        this.$store.dispatch("setCurrentElection", null).then(() => {
+          //loading.close();
+        });
+      },
 
-        setCurrentEurDistrict(data) {
-            const loading = Loading.service();
-            //console.log('Region.vue:meth.:setCurrentEurDistrict:', data);
-            //console.log('store.state.vote', this.$store.state.vote);
-            const eurDistrict = this.$store.state.vote.eurDistrictSearchResults.find(r => r.value === data.eurDistrict);
+      setCurrentEurDistrict(data) {
+        const loading = Loading.service();
+        //console.log('Region.vue:meth.:setCurrentEurDistrict:', data);
+        //console.log('store.state.vote', this.$store.state.vote);
+        const eurDistrict = this.$store.state.vote.eurDistrictSearchResults.find(r => r.value === data.eurDistrict);
 
-            console.log('...eurDistrict:', eurDistrict);
+        console.log('...eurDistrict:', eurDistrict);
 
-            this.eur_district_key = eurDistrict.key;
-            this.eur_district_code = eurDistrict.code;
-            this.$store.commit("setCurrentEurDistrict", eurDistrict);
-
-
-            this.$store.dispatch("getEurDistrictLists", eurDistrict).then(() => {
-                loading.close();
-            });
-        },
-
-        setCurrentRegDistrict(data) {
-            const loading = Loading.service();
-            //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
-            //console.log('store.state.vote', this.$store.state.vote);
-            const regDistrict = this.$store.state.vote.regDistrictSearchResults.find(r => r.value === data.regDistrict);
-            console.log('...regDistrict:', regDistrict);
-
-            this.reg_district_key = regDistrict.key;
-            this.reg_district_code = regDistrict.code;
-            this.$store.commit("setCurrentRegDistrict", regDistrict);
-
-            let region = regDistrict.type.substr(3,2);
-
-            console.log('region from regDistrict: ' + region);
-            this.$store.commit("setCurrentRegion", region);
+        this.eur_district_key = eurDistrict.key;
+        this.eur_district_code = eurDistrict.code;
+        this.$store.commit("setCurrentEurDistrict", eurDistrict);
 
 
-            this.$store.dispatch("getRegDistrictLists", regDistrict).then(() => {
-                loading.close();
-            });
-        },
+        this.$store.dispatch("getEurDistrictLists", eurDistrict).then(() => {
+          loading.close();
+        });
+      },
 
-        setCurrentFedDistrict(data) {
-            const loading = Loading.service();
-            //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
-            //console.log('store.state.vote', this.$store.state.vote);
-            const fedDistrict = this.$store.state.vote.fedDistrictSearchResults.find(r => r.value === data.fedDistrict);
-            console.log('...fedDistrict:', fedDistrict);
+      setCurrentRegDistrict(data) {
+        const loading = Loading.service();
+        //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
+        //console.log('store.state.vote', this.$store.state.vote);
+        const regDistrict = this.$store.state.vote.regDistrictSearchResults.find(r => r.value === data.regDistrict);
+        console.log('...regDistrict:', regDistrict);
 
-            this.fed_district_key = fedDistrict.key;
-            this.fed_district_code = fedDistrict.code;
-            this.$store.commit("setCurrentFedDistrict", fedDistrict);
+        this.reg_district_key = regDistrict.key;
+        this.reg_district_code = regDistrict.code;
+        this.$store.commit("setCurrentRegDistrict", regDistrict);
 
-            this.$store.dispatch("getFedDistrictLists", fedDistrict).then(() => {
-                loading.close();
-            });
-        },
+        let region = regDistrict.type.substr(3, 2);
 
-        setCurrentDistrict(data) {
-            const loading = Loading.service();
-            //console.log('Region.vue:meth.:setCurrentDistrict:', data);
-            //console.log('store.state.vote', this.$store.state.vote);
-            const district = this.$store.state.vote.districtSearchResults.find(r => r.value === data.district);
+        console.log('region from regDistrict: ' + region);
+        this.$store.commit("setCurrentRegion", region);
 
-            //console.log('...district:', district);
 
-            this.district_key = district.key;
-            this.district_code = district.code;
-            this.$store.commit("setCurrentDistrict", district);
-            loading.close();
-        },
-        async filterEurDistricts(data, cb) {
-            //console.log('Region.vue:meth.filterEurDistricts:', data);
-            await this.$store.dispatch('filterEurDistricts', data);
-            cb(this.$store.state.vote.eurDistrictSearchResults);
-        },
-        async filterRegDistricts(data, cb) {
-            //console.log('Region.vue:meth.filterRegDistricts:', data);
-            await this.$store.dispatch('filterRegDistricts', data);
-            cb(this.$store.state.vote.regDistrictSearchResults);
-        },
-        async filterFedDistricts(data, cb) {
-            //console.log('Region.vue:meth.filterFedDistricts:', data);
-            await this.$store.dispatch('filterFedDistricts', data);
-            cb(this.$store.state.vote.fedDistrictSearchResults);
-        },
+        this.$store.dispatch("getRegDistrictLists", regDistrict).then(() => {
+          loading.close();
+        });
+      },
 
-        async filterDistricts(data, cb) {
-            await this.$store.dispatch('filterDistricts', data);
-            cb(this.$store.state.vote.districtSearchResults);
-        }
+      setCurrentFedDistrict(data) {
+        const loading = Loading.service();
+        //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
+        //console.log('store.state.vote', this.$store.state.vote);
+        const fedDistrict = this.$store.state.vote.fedDistrictSearchResults.find(r => r.value === data.fedDistrict);
+        console.log('...fedDistrict:', fedDistrict);
+
+        this.fed_district_key = fedDistrict.key;
+        this.fed_district_code = fedDistrict.code;
+        this.$store.commit("setCurrentFedDistrict", fedDistrict);
+
+        this.$store.dispatch("getFedDistrictLists", fedDistrict).then(() => {
+          loading.close();
+        });
+      },
+
+      setCurrentDistrict(data) {
+        const loading = Loading.service();
+        //console.log('Region.vue:meth.:setCurrentDistrict:', data);
+        //console.log('store.state.vote', this.$store.state.vote);
+        const district = this.$store.state.vote.districtSearchResults.find(r => r.value === data.district);
+
+        //console.log('...district:', district);
+
+        this.district_key = district.key;
+        this.district_code = district.code;
+        this.$store.commit("setCurrentDistrict", district);
+        loading.close();
+      },
+      async filterEurDistricts(data, cb) {
+        //console.log('Region.vue:meth.filterEurDistricts:', data);
+        await this.$store.dispatch('filterEurDistricts', data);
+        cb(this.$store.state.vote.eurDistrictSearchResults);
+      },
+      async filterRegDistricts(data, cb) {
+        //console.log('Region.vue:meth.filterRegDistricts:', data);
+        await this.$store.dispatch('filterRegDistricts', data);
+        cb(this.$store.state.vote.regDistrictSearchResults);
+      },
+      async filterFedDistricts(data, cb) {
+        //console.log('Region.vue:meth.filterFedDistricts:', data);
+        await this.$store.dispatch('filterFedDistricts', data);
+        cb(this.$store.state.vote.fedDistrictSearchResults);
+      },
+
+      async filterDistricts(data, cb) {
+        await this.$store.dispatch('filterDistricts', data);
+        cb(this.$store.state.vote.districtSearchResults);
+      }
     }
   };
 </script>

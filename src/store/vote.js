@@ -11,6 +11,7 @@ export default {
       eurDistrict: null,
       election: null,
       surveyKey: null,
+      showDonate: false,
     },
     districts: [],
     eurDistricts: [],
@@ -23,6 +24,9 @@ export default {
     regDistrictSearchResults: []
   },
   mutations: {
+    switchDonate(state){
+      state.current.showDonate = !state.current.showDonate;
+    },
     setCurrentRegion(state, payload) {
       console.log('vote.js:mut.setCurrentRegion', payload);
       state.current.region= payload
@@ -82,6 +86,9 @@ export default {
     }
   },
   actions: {
+    async showDonate ({ commit }) {
+      commit('switchDonate');
+    },
     async getDistricts ({ commit }, data) {
       //console.log('vote.js:act.getDistricts:');console.log(data);
       const districts = await API.get('vote/district.json', data)
@@ -242,6 +249,7 @@ export default {
     region: state => state.current.region,
     districts: state => state.districts,
     districtSearchResults: state => state.districtSearchResults,
-    currentElection: state => state.current.election
+    currentElection: state => state.current.election,
+    showDonate: state => state.current.showDonate
   }
 }
