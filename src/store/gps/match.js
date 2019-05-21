@@ -4,7 +4,7 @@ import API from "../_helpers/api";
 // TODO : handle more (or less) than two segment for each poll
 
 function getSubject(matchRequest) {
-    console.log('getSubject' ,matchRequest);
+    //console.log('getSubject' ,matchRequest);
     return matchRequest.answers.reduce(
         (accumulator, target) => {
             const currentAnswerFormat = matchRequest.answer_formats.find(x => x.key === target.answer_format);
@@ -13,6 +13,7 @@ function getSubject(matchRequest) {
                 const currentItem = currentAnswerFormat.items.find(x => x.key === target.value);
 
                 if (currentItem) {
+                    //console.log(currentItem);
                     return {
                         ...accumulator,
                         [target.question_key]: currentItem.weight
@@ -80,7 +81,7 @@ function getSamples(matchRequest, data) {
 
 function individualDistance(answer_formats, subject, weights, set) {
 
-    //console.log('individualDistance..');
+    console.log('individualDistance..');
 
     let filteredSet = {};
     let filteredSubject = {};
@@ -91,13 +92,13 @@ function individualDistance(answer_formats, subject, weights, set) {
         if (set.hasOwnProperty(f)) {
 
             if (subject[f] != 50) {   // we do not take into account 'no_opinion' case
-                console.dir('Included:', subject[f]);
+                //console.dir('Included:', subject[f]);
                 filteredSet[f] = set[f];
                 filteredSubject[f] = subject[f];
                 filteredWeights[f] = weights[f];
                 filteredNbr++;
             } else {
-                console.dir('Excluded', subject[f]);
+                //console.dir('Excluded', subject[f]);
             }
         }
     });
@@ -117,13 +118,12 @@ function individualDistance(answer_formats, subject, weights, set) {
         }, 0));
 
     //console.log("Distance : ");console.log(distance);
-    //console.log("Score");console.log((1 - distance / distanceMax));
-    //console.log("i");console.log(i);
-    //console.log("subjectLength");console.log(subjectLength);
     //console.log("Max weight : ");console.log(itemWeightMax);
     //console.log("Max distance : ");console.log(distanceMax);
+    //console.log("Score");console.log((1 - distance / distanceMax));
 
-    const distance1 = 100 * (1 - distance / distanceMax);
+    let distance1 =0;
+    if (distanceMax) distance1 = 100 * (1 - distance / distanceMax);
     //console.log('  distance1:', distance1);
     //return 100 * (1 - distance / distanceMax) * (0.75 + 0.25 * filteredNbr / subjectLength);
     //const corrDistance = 100 * (1 - distance / distanceMax) * (2 / 3 + 1 / 3 * filteredNbr / subjectLength);
@@ -171,17 +171,15 @@ function performMatch(matchRequest, segmentAnswers) {
     const weights = getWeights(matchRequest);
     const samples = getSamples(matchRequest, segmentAnswers);
 
-
-
-    console.log(samples);
     //console.log("My choice : ");console.log(subject);
     //console.log("My tolerance : ");console.log(weights);
+    //console.log(samples);
 
     return Object.keys(samples).map(key => {
 
-        console.log('Individual - user_key', key);
+        //console.log('Individual - user_key', key);
         const sample = samples[key];
-        console.log('Individual - sample', sample);
+        //console.log('Individual - sample', sample);
 
         // for all subject keys, get the sample one. if it does not exist, remove the one 
 
@@ -192,10 +190,12 @@ function performMatch(matchRequest, segmentAnswers) {
 
         //console.log('Individual - match', match);
 
-        return {
+        let matchScore = {
             user_key: key,
             score: match
         }
+        //console.log(matchScore);
+        return matchScore;
 
     });
 }
@@ -301,50 +301,50 @@ export default {
             state.current.fedDistrictLists = payload
         },
         setCurrentRegDistrictLists (state, payload) {
-            console.log('vote.js:mut.setCurrentRegDistrictLists', payload);
+            //console.log('vote.js:mut.setCurrentRegDistrictLists', payload);
             state.current.regDistrictLists = payload
         },
         setCurrentEurSubstitutes (state, payload) {
-            console.log('vote.js:mut.setCurrentEurSubstitutes', payload);
+            //console.log('vote.js:mut.setCurrentEurSubstitutes', payload);
             state.current.eurSubstitutes = payload
         },
         setCurrentFedSubstitutes(state, payload) {
-            console.log('vote.js:mut.setCurrentFedSubstitutes', payload);
+            //console.log('vote.js:mut.setCurrentFedSubstitutes', payload);
             state.current.fedSubstitutes = payload
         },
         setCurrentRegSubstitutes(state, payload) {
-            console.log('vote.js:mut.setCurrentRegSubstitutes', payload);
+            //console.log('vote.js:mut.setCurrentRegSubstitutes', payload);
             state.current.regSubstitutes = payload
         },
 
         setCurrentEurCandidates(state, payload) {
-            console.log('vote.js:mut.setCurrentEurCandidates', payload);
+            //console.log('vote.js:mut.setCurrentEurCandidates', payload);
             state.current.eurCandidates = payload
         },
         setCurrentFedCandidates(state, payload) {
-            console.log('vote.js:mut.setCurrentFedCandidates', payload);
+            //console.log('vote.js:mut.setCurrentFedCandidates', payload);
             state.current.fedCandidates = payload
         },
         setCurrentRegCandidates(state, payload) {
-            console.log('vote.js:mut.setCurrentRegCandidates', payload);
+            //console.log('vote.js:mut.setCurrentRegCandidates', payload);
             state.current.regCandidates = payload
         },
 
         // SCORES
         setCurrentCandidateScores(state, payload) {
-            console.log('setCurrentCandidateScores:');console.log(payload);
+            //console.log('setCurrentCandidateScores:');console.log(payload);
             if (payload.electionTp=='eur') state.current.eurCandidateScores= payload.scores;
             if (payload.electionTp=='reg') state.current.regCandidateScores= payload.scores;
             if (payload.electionTp=='fed') state.current.fedCandidateScores= payload.scores;
         },
         setCurrentElectoralListScores(state, payload) {
-            console.log('setCurrentElectoralListScores:');console.log(payload);
+            //console.log('setCurrentElectoralListScores:');console.log(payload);
             if (payload.electionTp=='eur') state.current.eurElectoralListScores= payload.scores;
             if (payload.electionTp=='reg') state.current.regElectoralListScores= payload.scores;
             if (payload.electionTp=='fed') state.current.fedElectoralListScores= payload.scores;
         },
         setCurrentSubstituteScores(state, payload) {
-            console.log('setCurrentSubstituteScores:');console.log(payload);
+            //console.log('setCurrentSubstituteScores:');console.log(payload);
             if (payload.electionTp=='eur') state.current.eurSubstituteScores= payload.scores;
             if (payload.electionTp=='reg') state.current.regSubstituteScores= payload.scores;
             if (payload.electionTp=='fed') state.current.fedSubstituteScores= payload.scores;
@@ -373,14 +373,14 @@ export default {
     actions: {
 
         async getFedDistrictLists({ commit }, data) {
-            console.log('match.js:act.getFedDistrictLists:');
+            //console.log('match.js:act.getFedDistrictLists:');
 
             let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
-            console.log(endpoint);
+            //console.log(endpoint);
 
             const elDistrictData = await API.get('vote/election/2019_be/district/be_'+data.code+'.json', data)
                 .then((request) => {
-                    console.log(request.data);
+                    //console.log(request.data);
                     return request.data
                 })
             commit('setCurrentFedDistrictLists', elDistrictData.electoral_lists)
@@ -389,14 +389,14 @@ export default {
 
         },
         async getRegDistrictLists({ commit }, data) {
-            console.log('match.js:act.getRegDistrictLists:');
+            //console.log('match.js:act.getRegDistrictLists:');
 
             let endpoint = 'vote/election/2019_be/district/be_'+data.code+'.json';
-            console.log(endpoint);
+            //console.log(endpoint);
 
             const elDistrictData = await API.get(endpoint, data)
                 .then((request) => {
-                    console.log(request.data);
+                    //console.log(request.data);
                     return request.data
                 })
             commit('setCurrentRegDistrictLists', elDistrictData.electoral_lists)
@@ -435,9 +435,7 @@ export default {
 
 
         async performMatch({commit}, matchRequest) {
-            console.log('>> performMatch');
-            console.log('matchRequest:', matchRequest);
-            console.log('matchRequest.segment_key:', matchRequest.segment_key);
+            //console.log('>> performMatch');console.log('matchRequest:', matchRequest);console.log('matchRequest.segment_key:', matchRequest.segment_key);
             const segmentAnswers = await API.get('gps/answer/segment/' + matchRequest.segment_key + '.json').then((request) => {
                 console.log(request.data.data);
                 return request.data.data;
@@ -460,16 +458,16 @@ export default {
 
 
             if (matchRequest.segment_key.includes("electoral_list")) {
-                console.log('.. for electoral_list s:');
+                //console.log('.. for electoral_list s:');
                 commit('setCurrentElectoralListSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers}  )
             }
 
             if (matchRequest.segment_key.includes("candidate")) {
-                console.log(' .. for candidates');
+                //console.log(' .. for candidates');
                 commit('setCurrentCandidateSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
             if (matchRequest.segment_key.includes("substitute")) {
-                console.log(' .. for substitutes');
+                //console.log(' .. for substitutes');
                 commit('setCurrentSubstituteSegmentAnswers', { 'electionTp':electionTp,'answers':segmentAnswers} )
             }
 
@@ -479,9 +477,11 @@ export default {
             const viewScores = scores
                 .sort((a, b) => -(a.score - b.score))
                 .map(s => {
+                    console.log('score:', s);
                     s.score = s.score.toFixed(2);
                     return s;
                 });
+
 
             console.log('** SORTED SCORES: '); console.log(viewScores);
 
