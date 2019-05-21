@@ -83,12 +83,12 @@
                                  v-for="(item, idx) in currentRegElectoralListScores.map(extractRegDistrictList)"
                                  :key="idx" v-bind:class="{ disabled: !item.has_answered }">
                                 <div class="col-3">
-                                    <div class="image"><img :src="item.img" v-if="item.img"
-                                                            class="img-thumbnail"/>
-                                        <img
-                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"
-                                                v-else
-                                                class="img-thumbnail"/></div>
+<!--                                    <div class="image"><img :src="item.img" v-if="item.img"-->
+<!--                                                            class="img-thumbnail"/>-->
+<!--                                        <img-->
+<!--                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"-->
+<!--                                                v-else-->
+<!--                                                class="img-thumbnail"/></div>-->
                                 </div>
                                 <div class="col-9">
                                     <div class="title">
@@ -195,12 +195,12 @@
                                  v-for="(item, idx) in currentFedElectoralListScores.map(extractFedDistrictList)"
                                  :key="idx" v-bind:class="{ disabled: !item.has_answered }">
                                 <div class="col-3">
-                                    <div class="image"><img :src="item.img" v-if="item.img"
-                                                            class="img-thumbnail"/>
-                                        <img
-                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"
-                                                v-else
-                                                class="img-thumbnail"/></div>
+<!--                                    <div class="image"><img :src="item.img" v-if="item.img"-->
+<!--                                                            class="img-thumbnail"/>-->
+<!--                                        <img-->
+<!--                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"-->
+<!--                                                v-else-->
+<!--                                                class="img-thumbnail"/></div>-->
                                 </div>
                                 <div class="col-9">
                                     <div class="title">
@@ -305,12 +305,12 @@
                                  v-for="(item, idx) in currentEurElectoralListScores.map(extractEurDistrictList)"
                                  :key="idx" v-bind:class="{ disabled: !item.has_answered }">
                                 <div class="col-3">
-                                    <div class="image"><img :src="item.img" v-if="item.img"
-                                                            class="img-thumbnail"/>
-                                        <img
-                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"
-                                                v-else
-                                                class="img-thumbnail"/></div>
+<!--                                    <div class="image"><img :src="item.img" v-if="item.img"-->
+<!--                                                            class="img-thumbnail"/>-->
+<!--                                        <img-->
+<!--                                                src="//directory.wecitizens.be/assets/media/politician-thumb/img-no-photo.png"-->
+<!--                                                v-else-->
+<!--                                                class="img-thumbnail"/></div>-->
                                 </div>
                                 <div class="col-9">
                                     <div class="title">
