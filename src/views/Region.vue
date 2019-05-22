@@ -121,7 +121,7 @@
         //console.log('store.state.vote', this.$store.state.vote);
         const eurDistrict = this.$store.state.vote.eurDistrictSearchResults.find(r => r.value === data.eurDistrict);
 
-        console.log('...eurDistrict:', eurDistrict);
+        //console.log('...eurDistrict:', eurDistrict);
 
         this.eur_district_key = eurDistrict.key;
         this.eur_district_code = eurDistrict.code;
@@ -160,7 +160,7 @@
         //console.log('Region.vue:meth.:setCurrentRegDistrict:', data);
         //console.log('store.state.vote', this.$store.state.vote);
         const fedDistrict = this.$store.state.vote.fedDistrictSearchResults.find(r => r.value === data.fedDistrict);
-        console.log('...fedDistrict:', fedDistrict);
+        //console.log('...fedDistrict:', fedDistrict);
 
         this.fed_district_key = fedDistrict.key;
         this.fed_district_code = fedDistrict.code;

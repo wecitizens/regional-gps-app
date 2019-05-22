@@ -95,21 +95,19 @@
     },
     computed: {
       ...mapGetters(['questions', 'currentQuestionKey', 'survey']),
+
       answerFormatOrdered() {
-
-        if (this.answerFormat) {     // NOT WORKING. side effects in computed properties.
-           // console.log('unorderedAnsweredF:' , this.answerFormat);
-          return  this.answerFormat.items.sort((a, b) => a.weight < b.weight);
-          // console.log('orderedAnsweredF:' , orderedAnsweredF);
-          // return orderedAnsweredF;
+        if (this.answerFormat) {
+            return this.answerFormat;
+            // this is NOT WORKING. side effects in computed properties :
+          //return  this.answerFormat.items.sort((a, b) => a.weight < b.weight);
         }
-
         return [];
       }
     },
     watch: {
       agreement: function (agreement) {
-        console.log('Set agreement', agreement);
+        //console.log('Set agreement', agreement);
         setTimeout(() => {
           let tolerance = this.answerFormat.tolerance.items[this.importance].key;
           this.setQuestionImportance({questionKey: this.question.key, importance: tolerance});
@@ -136,12 +134,12 @@
         return index;
       },
       setAnswer: function (key) {
-        console.log('Agreement', key);
+        //console.log('Agreement', key);
         this.answer_key = key;
         this.agreement = key;
       },
       setImportance: function (importance) {
-        console.log('Data', importance);
+        //console.log('Data', importance);
         this.importance = importance;
       }
     }
