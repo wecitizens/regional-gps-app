@@ -11,7 +11,8 @@ export default {
         "subtitle": "Europese, federale en regionale verkiezingen van 2019",
         "powered_by": "Powered by:",
         "description": "{userCount} kiezers hebben het al gedaan",
-        "with_help_from": "In samenwerking met:"
+        "with_help_from": "In samenwerking met:",
+        "incident": "Ten gevolge een technisch incident, is de website tijdelijk onderbroken"
     },
     "app": {
         "title": "KiesWijzer"

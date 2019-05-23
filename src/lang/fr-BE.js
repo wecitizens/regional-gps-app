@@ -11,7 +11,8 @@ export default {
         "subtitle": "Élections européennes, fédérales et régionales de 2019",
         "powered_by": "Powered by:",
         "description": "{userCount} électeurs ont déjà fait l'expérience",
-        "with_help_from": "En partenariat avec :"
+        "with_help_from": "En partenariat avec :",
+        "incident": "Suite à un incident technique, le site est en travaux"
     },
     "app": {
         "title": "GPS électoral"
