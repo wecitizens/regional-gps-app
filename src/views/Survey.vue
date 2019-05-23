@@ -81,7 +81,7 @@
       }
     },
     created() {
-      console.log('Survey.vue.created:');
+      //console.log('Survey.vue.created:');
 
       // Skip default 20 questions for local env
       if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {

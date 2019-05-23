@@ -10,7 +10,9 @@ export default {
         "subtitle": "European, federal and regional elections in Belgium in 2019",
         "powered_by": "Powered by:",
         "description": "Already {userCount} matchs",
-        "with_help_from": "With the help of:"
+        "with_help_from": "With the help of:",
+        "incident": "Due to a technical incident, the website is temporarily not operational"
+
     },
     "disagree": "Rather no",
     "app": {
