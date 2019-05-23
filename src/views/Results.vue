@@ -10,7 +10,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentRegCandidateScores.map(extractRegCandidate)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }" v-if="item.score">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }" v-if="item.score && item.has_answered">
                                 <div class="col-3 d-print-none">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
@@ -46,7 +46,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentRegSubstituteScores.map(extractRegSubstitute)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }"  v-if="item.score && item.has_answered">
                                 <div class="col-3 d-print-none">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
@@ -123,7 +123,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentFedCandidateScores.map(extractFedCandidate)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }"   v-if="item.score && item.has_answered">
                                 <div class="col-3">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
@@ -158,7 +158,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentFedSubstituteScores.map(extractFedSubstitute)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }"  v-if="item.score && item.has_answered">
                                 <div class="col-3">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
@@ -233,7 +233,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentEurCandidateScores.map(extractEurCandidate)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }"  v-if="item.score && item.has_answered">
                                 <div class="col-3 d-print-none">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
@@ -268,7 +268,7 @@
                                 }}:</p>
                             <div class="row list-item"
                                  v-for="(item, idx) in currentEurSubstituteScores.map(extractEurSubstitute)"
-                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }">
+                                 :key="idx" v-bind:class="{ disabled: !item.has_answered }"  v-if="item.score && item.has_answered">
                                 <div class="col-3 d-print-none">
                                     <div class="image"><img :src="item.img" v-if="item.img"
                                                             class="img-thumbnail"/>
