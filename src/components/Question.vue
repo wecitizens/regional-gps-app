@@ -97,9 +97,10 @@
       ...mapGetters(['questions', 'currentQuestionKey', 'survey']),
       answerFormatOrdered() {
 
-        if (this.answerFormat) {     // NOT WORKING. side effects in computed properties.
+        if (this.answerFormat) {     // sort NOT WORKING. side effects in computed properties.
            // console.log('unorderedAnsweredF:' , this.answerFormat);
-            return  this.answerFormat.items.sort((a, b) => a.weight < b.weight);
+            return  this.answerFormat.items;
+            //return  this.answerFormat.items.sort((a, b) => a.weight < b.weight);
           // console.log('orderedAnsweredF:' , orderedAnsweredF);
           // return orderedAnsweredF;
         }
