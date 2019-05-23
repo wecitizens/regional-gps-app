@@ -5,15 +5,15 @@
             <div class="subtitle">{{ $t('home.subtitle') }}</div>
             <h2>{{ $t("home.title") }}</h2>
             <div class="infos d-none">{{ $t("home.description", {"userCount": campaignTotalParticipants}) }}</div>
-            <h2>{{ $t("home.incident") }}</h2>
+<!--            <h2>{{ $t("home.incident") }}</h2>-->
             <div class="cta-section">
 
                 <div class="perso-left">
                     <img src="/img/perso-1.svg" alt="">
                 </div>
-<!--                <router-link to="/region" tag="a" class="btn-start">-->
-<!--                    {{ $t("home.cta") }}-->
-<!--                </router-link>-->
+                <router-link to="/region" tag="a" class="btn-start">
+                    {{ $t("home.cta") }}
+-                </router-link>
                 <div class="perso-right">
                     <img src="/img/perso-2.svg" alt="">
                 </div>
