@@ -59,11 +59,27 @@
     methods: {
       seeResults() {
 
-        console.log("FORM", this.form);
+        //console.log("FORM", this.form);
 
         let data = this.form;
 
-        axios.get('stats', {
+
+          const answers = this.$store.state.questions.list.data.questions
+              .map(q => {
+                  return {
+                      question_key: q.key,
+                      answer_format: 'agr_5_scale_tol_3_scale_abs',
+                      value: q.agreement,
+                      tolerance: q.importance
+                  }
+              }).filter(q => q.value != null);
+
+          data.answers = answers;
+
+          //console.log(data);
+
+
+          axios.get('stats', {
           params: data
         }).then(() => {
           this.$router.push({name: 'results'});
